@@ -1,0 +1,20 @@
+.tab-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .button-group .active {
+    background-color: rgb(5, 7, 110);
+    color: #fff;
+    border: none;
+  }
+  
+  .button-group .MuiButton-outlined {
+    border: none;
+  }
+  
+  .button:hover {
+    background-color: rgb(5, 7, 110);
+    color: #fff;
+    border: none;
+  }
