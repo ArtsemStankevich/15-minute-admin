@@ -1,12 +1,20 @@
 import React from 'react';
 
-function Taska(props) {
+import CreateTask from "./CreateTask";
+import TaskList from "./TaskList";
+
+function Tasks() {
+
+
   return (
     <div>
-      <h2>Taska</h2>
-      <p>{props.info}</p>
+        <CreateTask />
+
+        <TaskList />
     </div>
   );
 }
 
-export default Taska;
+export default Tasks;
+
+
