@@ -25,9 +25,9 @@ function CreateTask() {
     // np. wysłanie go do serwera lub lokalne zapisanie
     };
     return (
-        <div>
+        <div style={{ margin: '0 auto', width: '50%' }}>
         <p className='border'>
-        <h3 style={{textAlign: 'center' }}>New Task</h3>
+        <h3 style={{textAlign: 'center', marginTop: 'auto'}}>New Task</h3>
         <form onSubmit={handleFormSubmit}>
             <TextField
             label="Name"

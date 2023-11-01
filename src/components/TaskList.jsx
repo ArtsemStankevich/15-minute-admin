@@ -6,7 +6,7 @@ function TaskList() {
   return (
     <div>
       <div className="border-max">
-        <h3 style={{ textAlign: 'center' }}>Task List</h3>
+        <h3 style={{ textAlign: 'center', marginTop:'auto' }}>Task List</h3>
         <table id="tasks">
           <thead>
             <tr>
