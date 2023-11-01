@@ -14,34 +14,36 @@ function Header() {
     setSelectedTab(tab);
   };
 
+
   return (
     <div>
       <div className="tab-buttons">
-        <ButtonGroup className="button-group" variant="outlined" aria-label="outlined button group">
+        <ButtonGroup className="header-button-group" variant="contained" aria-label="outlined button group">
           <Button
-            className={`button ${selectedTab === 'places' ? 'active' : ''}`}
+            className={`header-button ${selectedTab === 'places' ? 'active' : ''}`}
             onClick={() => handleTabClick('places')}
           >
             Places
           </Button>
           <Button
-            className={`button ${selectedTab === 'tasks' ? 'active' : ''}`}
+            className={`header-button ${selectedTab === 'tasks' ? 'active' : ''}`}
             onClick={() => handleTabClick('tasks')}
           >
             Tasks
           </Button>
           <Button
-            className={`button ${selectedTab === 'apiKeys' ? 'active' : ''}`}
+            className={`header-button ${selectedTab === 'apiKeys' ? 'active' : ''}`}
             onClick={() => handleTabClick('apiKeys')}
           >
             API Keys
           </Button>
           <Button
-            className={`button ${selectedTab === 'openStreetMap' ? 'active' : ''}`}
+            className={`header-button ${selectedTab === 'openStreetMap' ? 'active' : ''}`}
             onClick={() => handleTabClick('openStreetMap')}
           >
             OpenStreetMap
           </Button>
+
         </ButtonGroup>
       </div>
       <hr></hr>

@@ -5,7 +5,6 @@ function App() {
   return (
     <div>
       <Header />
-
       {/* Pozostała część Twojej aplikacji */}
     </div>
   );

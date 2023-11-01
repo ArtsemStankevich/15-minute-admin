@@ -3,18 +3,18 @@
     justify-content: space-around;
   }
   
-  .button-group .active {
+  .header-button-group .active {
     background-color: rgb(5, 7, 110);
     color: #fff;
     border: none;
   }
   
-  .button-group .MuiButton-outlined {
+  .header-button-group .MuiButton-outlined {
     border: none;
   }
   
-  .button:hover {
-    background-color: rgb(5, 7, 110);
+  .header-button:hover {
+    background-color: rgb(35, 37, 159);
     color: #fff;
     border: none;
   }

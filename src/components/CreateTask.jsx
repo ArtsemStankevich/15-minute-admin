@@ -32,7 +32,7 @@ function CreateTask() {
             <TextField
             label="Name"
             multiline
-            rows={2}
+            rows={1}
             variant="outlined"
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
