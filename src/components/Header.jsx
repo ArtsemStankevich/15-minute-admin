@@ -45,6 +45,7 @@ function Header() {
         </ButtonGroup>
       </div>
       <div>
+        <h2>{selectedTab}</h2>
         {selectedTab === 'places' && <Places />}
         {selectedTab === 'tasks' && <Tasks />}
         {selectedTab === 'apiKeys' && <APIKeys />}
