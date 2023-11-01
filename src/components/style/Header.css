@@ -18,3 +18,8 @@
     color: #fff;
     border: none;
   }
+
+  hr{
+    border: 2px solid rgb(35, 37, 159);
+
+  }
