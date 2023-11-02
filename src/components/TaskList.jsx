@@ -1,6 +1,6 @@
 import React from 'react';
-import tasksData from './data/tasks.json'; // Importuj dane z pliku JSON
-import './style/Categories.css'; // Importuj plik CSS
+import tasksData from './data/tasks.json'; 
+import './style/Categories.css'; 
 
 function TaskList() {
   return (

@@ -1,10 +1,12 @@
 import React from 'react';
-import placesData from './data/places.json'; // Importuj dane z pliku JSON
-import './style/Categories.css'; // Importuj plik CSS
+import placesData from './data/places.json'; 
+import './style/Categories.css'; 
+import { CssBaseline } from '@mui/material';
 
 function Places(props) {
   return (
     <div>
+    <CssBaseline />
           <div>
 
         <h3 style={{ textAlign: 'center' }}>Place List</h3>
