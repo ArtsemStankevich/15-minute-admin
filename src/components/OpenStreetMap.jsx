@@ -9,7 +9,7 @@ function OpenStreetMap(props) {
       <CssBaseline />
 
       <h2>OpenStreetMap</h2>
-      <p>{props.info}</p>
+      Thats develop brunch
     </div>
   );
 }
