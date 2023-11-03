@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import './style/Categories.css';
 
 
-function CreateTask() {
+function TaskCreate() {
 
     
     const [category, setCategory] = useState('');
@@ -60,4 +60,4 @@ function CreateTask() {
   );
 }
 
-export default CreateTask;
+export default TaskCreate;
