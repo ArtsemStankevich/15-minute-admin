@@ -1,0 +1,31 @@
+import React from 'react';
+import placesData from './data/places.json';
+import Table from './Table';
+
+function PlaceList() {
+
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: 'Place Name',
+        accessor: 'placeName',
+      },
+      {
+        Header: 'Category',
+        accessor: 'category',
+      },
+    ],
+    []
+  );
+
+ 
+
+  return (
+    <div>
+      <Table columns={columns} data={placesData} />
+    </div>
+  );
+}
+
+
+export default PlaceList;
