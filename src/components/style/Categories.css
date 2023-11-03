@@ -58,6 +58,8 @@
     border-radius: 3px;
   }
 
+/*Dla Table*/
+
   .custom-table {
     font-family: Arial, Helvetica, sans-serif;
   }
@@ -89,4 +91,26 @@
   .custom-table .react-bootstrap-table2-body .row:hover {
     background-color: #e8e8e8;
   }
+  
+  .table-button:hover {
+    margin: 4px;
+    padding: 8px 16px;
+    background-color: rgba(25, 29, 248, 0.799);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  .table-button {
+    margin: 4px;
+    padding: 8px 16px;
+    background-color: rgba(15, 18, 168, 0.799);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  /*Dla TaskFilter*/
+
   

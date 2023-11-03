@@ -1,6 +1,7 @@
 import React from 'react';
-import { useTable, usePagination, useSortBy } from 'react-table';
+import { useTable, useSortBy, usePagination, useFilters } from 'react-table';
 import './style/Categories.css';
+import TextFilter from './TaskFilter';
 
 function Table({ columns, data }) {
   const {
@@ -10,7 +11,7 @@ function Table({ columns, data }) {
     prepareRow,
     page,
     pageOptions,
-    state: { pageIndex, pageSize}, 
+    state: { pageIndex, pageSize }, 
     gotoPage,
     previousPage,
     nextPage,
@@ -24,17 +25,20 @@ function Table({ columns, data }) {
       initialState: {
         pageIndex: 0,
         pageSize: 3,
+        filters: [{ id: 'status', value: 'running' }], // Domyślny filtr na status 'running'
       },
     },
+    useFilters,
     useSortBy, 
     usePagination,
+
   );
-  
 
   return (
     <div>
+
       <table {...getTableProps()} className="border-max" id="tasks">
-      <thead>
+        <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
@@ -43,6 +47,9 @@ function Table({ columns, data }) {
                   <span>
                     {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
                   </span>
+                  <div className="filter">
+                  <TextFilter column={column} />
+                </div>
                 </th>
               ))}
             </tr>
@@ -56,16 +63,16 @@ function Table({ columns, data }) {
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>
-                    {cell.column.id === 'runStopCancel' ? (
-                      <div>
-                        <button className="button">Run</button>
-                        <button className="button">Stop</button>
-                        <button className="button">Cancel</button>
-                      </div>
-                    ) : (
-                      cell.render('Cell')
-                    )}
-                  </td>
+                      {cell.column.id === 'runStopCancel' ? (
+                        <div>
+                          <button className="table-button">Run</button>
+                          <button className="table-button">Stop</button>
+                          <button className="table-button">Cancel</button>
+                        </div>
+                      ) : (
+                        cell.render('Cell')
+                      )}
+                    </td>
                   );
                 })}
               </tr>
@@ -120,3 +127,4 @@ function Table({ columns, data }) {
 }
 
 export default Table;
+

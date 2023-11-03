@@ -1,6 +1,8 @@
 import React from 'react';
 import tasksData from './data/tasks.json';
 import Table from './Table';
+import TextFilter from './Table';
+
 
 function TaskList() {
 
@@ -20,6 +22,7 @@ function TaskList() {
         Header: 'Status',
         accessor: 'status',
         sortable: true,
+        Filter: TextFilter,
       },
       {
         Header: 'Items Collected',
