@@ -9,22 +9,27 @@ function TaskList() {
       {
         Header: 'Task Name',
         accessor: 'taskName',
+        sortable: true,
       },
       {
         Header: 'Category',
         accessor: 'category',
+        sortable: true,
       },
       {
         Header: 'Status',
         accessor: 'status',
+        sortable: true,
       },
       {
         Header: 'Items Collected',
         accessor: 'itemsCollected',
+        sortable: true,
       },
       {
         Header: 'Errors',
         accessor: 'errors',
+        sortable: true,
       },
       {
         Header: 'Run/Stop/Cancel',

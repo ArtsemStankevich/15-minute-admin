@@ -1,49 +1,59 @@
 import React from 'react';
-import { useTable, usePagination } from 'react-table';
+import { useTable, usePagination, useSortBy } from 'react-table';
 import './style/Categories.css';
 
 function Table({ columns, data }) {
-    const {
-      getTableProps,
-      getTableBodyProps,
-      headerGroups,
-      prepareRow,
-      page,
-      pageOptions,
-      state: { pageIndex, pageSize },
-      gotoPage,
-      previousPage,
-      nextPage,
-      canPreviousPage,
-      canNextPage,
-      setPageSize,
-    } = useTable(
-      {
-        columns,
-        data,
-        initialState: { pageIndex: 0, pageSize: 3 },
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    pageOptions,
+    state: { pageIndex, pageSize}, 
+    gotoPage,
+    previousPage,
+    nextPage,
+    canPreviousPage,
+    canNextPage,
+    setPageSize,
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: {
+        pageIndex: 0,
+        pageSize: 3,
       },
-      usePagination
-    );
+    },
+    useSortBy, 
+    usePagination,
+  );
+  
 
   return (
     <div>
       <table {...getTableProps()} className="border-max" id="tasks">
-        <thead>
-          {headerGroups.map(headerGroup => (
+      <thead>
+          {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render('Header')}
+                  <span>
+                    {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                  </span>
+                </th>
               ))}
             </tr>
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map(row => {
+          {page.map((row) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()} className={row.index % 2 === 0 ? 'even' : ''}>
-                {row.cells.map(cell => {
+                {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>
                     {cell.column.id === 'runStopCancel' ? (

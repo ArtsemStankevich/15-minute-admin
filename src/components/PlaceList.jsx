@@ -9,10 +9,12 @@ function PlaceList() {
       {
         Header: 'Place Name',
         accessor: 'placeName',
+        sortable: true,
       },
       {
         Header: 'Category',
         accessor: 'category',
+        sortable: true,
       },
     ],
     []
