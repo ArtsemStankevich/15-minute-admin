@@ -1,39 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Table from './Table';
-import TextFilter from './Table';
 
 
-function TaskList() {
+function ApikeysList() {
 
-  const [tasks, setTasks] = useState([])
+  const [Api, setApi] = useState([])
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Task Name',
+        Header: 'Api Name',
         accessor: 'name',
         sortable: true,
-      },
-      {
-        Header: 'Status',
-        accessor: 'status',
-        sortable: true,
-        Filter: TextFilter,
-      },
-      {
-        Header: 'Items Collected',
-        accessor: 'items_collected',
-        sortable: true,
-      },
-      {
-        Header: 'Errors',
-        accessor: 'error_subtask_count',
-        sortable: true,
-      },
-      {
-        Header: 'Run/Stop/Cancel',
-        accessor: 'actions',
-        id: 'runStopCancel',
       },
     ],
     []
@@ -43,7 +21,7 @@ function TaskList() {
     
     const fetchTasks = async () => {
       try {
-        const response = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
+        const response = await fetch('https://15minadmin.1213213.xyz/gmaps/credential/', {
           method: 'GET',
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +30,7 @@ function TaskList() {
       //  console.log(response)
         if (response.ok) {
           const data = await response.json();
-          setTasks(data);
+          setApi(data);
         //  console.log(data)
         } else {
           console.error('Błąd pobierania danych z serwera');
@@ -67,10 +45,10 @@ function TaskList() {
 
   return (
     <div>
-      <Table columns={columns} data={tasks} />
+      <Table columns={columns} data={Api} />
     </div>
   );
 }
 
 
-export default TaskList;
+export default ApikeysList;

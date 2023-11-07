@@ -58,4 +58,59 @@
     border-radius: 3px;
   }
 
+/*Dla Table*/
+
+  .custom-table {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .custom-table .react-bootstrap-table2-header th {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px;
+  }
+  
+  .custom-table .react-bootstrap-table2 .btn {
+    margin: 4px;
+    padding: 8px 16px;
+    background-color: #0F12A8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  
+  .custom-table .react-bootstrap-table2 .btn:hover {
+    background-color: #0C0F98;
+  }
+  
+  .custom-table .react-bootstrap-table2-body .row-even {
+    background-color: #f2f2f2;
+  }
+  
+  .custom-table .react-bootstrap-table2-body .row:hover {
+    background-color: #e8e8e8;
+  }
+  
+  .table-button:hover {
+    margin: 4px;
+    padding: 8px 16px;
+    background-color: rgba(25, 29, 248, 0.799);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  .table-button {
+    margin: 4px;
+    padding: 8px 16px;
+    background-color: rgba(15, 18, 168, 0.799);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  /*Dla TaskFilter*/
+
   
