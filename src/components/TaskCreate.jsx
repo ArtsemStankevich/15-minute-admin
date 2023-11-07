@@ -1,23 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import categories from './data/placesTypes.json'; // Importuj dostępne kategorie z pliku JSON
 import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl';
 import './style/Categories.css';
 
 
 function TaskCreate() {
 
     
-    const [category, setCategory] = useState('');
     const [newTask, setNewTask] = useState('');
+    const [places, setPlaces] = useState([])
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
 
     useEffect(() => {
-    setCategory(categories[0]); 
-    }, []);
+    
+        const fetchTasks = async () => {
+          try {
+            const response = await fetch('https://15minadmin.1213213.xyz/gmaps/place/', {
+              method: 'GET',
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            console.log(response)
+            if (response.ok) {
+              const data = await response.json();
+              setPlaces(data);
+              console.log(data)
+            } else {
+              console.error('Błąd pobierania danych z serwera');
+            }
+          } catch (error) {
+            console.error('Błąd pobierania danych z serwera', error);
+          }
+        };
+    
+        fetchTasks();
+      }, []);
+
 
     const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -37,20 +59,21 @@ function TaskCreate() {
             className='pad'
             style={{ marginRight: '20px' }}
             />
-            <FormControl className='pad'>
             <Select
-                label="Category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
+                label="Categories"
+                value={selectedCategories} // Zmienione na tablicę
+                onChange={(e) => setSelectedCategories(e.target.value)} // Zmienione na tablicę
+                multiple // Pozwala na wybieranie wielu opcji
                 variant="outlined"
+                style={{ width: '50%' }}
+                id="category"
             >
-                {categories.map((type) => (
-                <MenuItem key={type} value={type}>
-                    {type}
-                </MenuItem>
+                {places.map((place) => (
+                    <MenuItem key={place.value} value={place.value}>
+                        {place.value}
+                    </MenuItem>
                 ))}
             </Select>
-            </FormControl>
             <Button variant="contained" color="primary" type="submit" style={{ display: 'block', margin: '25% auto 0', backgroundColor: 'darkblue'}}>
             Add Task
             </Button>

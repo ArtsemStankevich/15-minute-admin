@@ -1,12 +1,12 @@
 import React from 'react';
 import './style/Categories.css';
 import { CssBaseline, Grid } from '@mui/material';
-import ApikeysCreate from './ApikeysCreate';
-import ApikeysList from './ApikeysList';
+import CoordinatesCreate from './CoordinatesCreate';
+import CoordinatesList from './CoordinatesList';
 
 
 
-function Apikeys() {
+function Coordinates() {
 
 
   return (
@@ -14,13 +14,14 @@ function Apikeys() {
     <CssBaseline />
     <Grid container spacing={1} style={{ width: '100%' }}>
       <Grid item xs={12}>
-        <ApikeysCreate />
+        <CoordinatesCreate />
       </Grid>
       <Grid item xs={12}>
-        <ApikeysList />
+        <CoordinatesList />
       </Grid>
     </Grid>
   </>
   );
 }
-export default Apikeys;
+export default Coordinates;
+

@@ -1,39 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import Table from './Table';
-import TextFilter from './Table';
 
 
-function TaskList() {
+function CoordinatesList() {
 
-  const [tasks, setTasks] = useState([])
+  const [Coordinates, setNewCoordinates] = useState([])
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Task Name',
+        Header: 'Coordinates Name',
         accessor: 'name',
         sortable: true,
       },
       {
-        Header: 'Status',
-        accessor: 'status',
-        sortable: true,
-        Filter: TextFilter,
-      },
-      {
-        Header: 'Items Collected',
-        accessor: 'items_collected',
+        Header: 'Lat',
+        accessor: 'lat',
         sortable: true,
       },
       {
-        Header: 'Errors',
-        accessor: 'error_subtask_count',
+        Header: 'Lon',
+        accessor: 'lon',
         sortable: true,
       },
       {
-        Header: 'Run/Stop/Cancel',
-        accessor: 'actions',
-        id: 'runStopCancel',
+        Header: 'Radius',
+        accessor: 'radius',
+        sortable: true,
       },
     ],
     []
@@ -43,7 +36,7 @@ function TaskList() {
     
     const fetchTasks = async () => {
       try {
-        const response = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
+        const response = await fetch('https://15minadmin.1213213.xyz/gmaps/coordinates/', {
           method: 'GET',
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +45,7 @@ function TaskList() {
       //  console.log(response)
         if (response.ok) {
           const data = await response.json();
-          setTasks(data);
+          setNewCoordinates(data);
         //  console.log(data)
         } else {
           console.error('Błąd pobierania danych z serwera');
@@ -67,10 +60,10 @@ function TaskList() {
 
   return (
     <div>
-      <Table columns={columns} data={tasks} />
+      <Table columns={columns} data={Coordinates} />
     </div>
   );
 }
 
 
-export default TaskList;
+export default CoordinatesList;
