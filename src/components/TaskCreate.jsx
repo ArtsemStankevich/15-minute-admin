@@ -212,7 +212,7 @@ function TaskCreate() {
             value={taskName}
             onChange={(e) => setTaskName(e.target.value)}
             className='pad'
-            style={{ marginRight: '20px' }}
+            style={{ marginRight: '20px', marginBottom: '10px' }}
             />
             <Select
                 label="Places"
@@ -220,7 +220,7 @@ function TaskCreate() {
                 onChange={(e) => setselectedPlaces(e.target.value)} // Zmienione na tablicę
                 multiple // Pozwala na wybieranie wielu opcji
                 variant="outlined"
-                style={{ width: '50%' }}
+                style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
                 id="category"
             >
                 {places.map((place) => (
@@ -229,11 +229,28 @@ function TaskCreate() {
                     </MenuItem>
                 ))}
             </Select>
+
+            <Button variant="contained" color="primary" type="submit" style={{ display: 'block', margin: '25% auto 0', backgroundColor: 'darkblue'}}>
+            Add Task
+            </Button>
+        </form>
+        </p>
+        </div>
+        
+  );
+}
+
+export default TaskCreate;
+
+
+/*
+            
             <Select
                 label="Apikey"
                 value={selectedApikey}
                 onChange={(e) => setSelectedApiKey(e.target.value)}
                 variant="outlined"
+                style={{ width: '40%', marginRight: '20px'}}
             >
                 {apikey.map((apikey) => (
                 <MenuItem key={apikey} value={apikey}>
@@ -246,6 +263,7 @@ function TaskCreate() {
                 value={selectedCoordinates}
                 onChange={(e) => setSelectedCoordinates(e.target.value)}
                 variant="outlined"
+                style={{ width: '40%', marginRight: '20px'}}
             >
                 {coordinates.map((coordinates) => (
                 <MenuItem key={coordinates} value={coordinates}>
@@ -253,14 +271,4 @@ function TaskCreate() {
                 </MenuItem>
                 ))}
             </Select>
-            <Button variant="contained" color="primary" type="submit" style={{ display: 'block', margin: '25% auto 0', backgroundColor: 'darkblue'}}>
-            Add Task
-            </Button>
-        </form>
-        </p>
-        </div>
-        
-  );
-}
-
-export default TaskCreate;
+            */
