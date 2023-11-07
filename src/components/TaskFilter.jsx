@@ -28,7 +28,7 @@ function TextFilter({ column }) {
       >
         <option value="running">Running</option>
         <option value="stopped">Stopped</option>
-        <option value="waiting">Running</option>
+        <option value="waiting">Waiting</option>
       </select>
     </div>
   );
