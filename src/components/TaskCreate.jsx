@@ -140,9 +140,9 @@ function TaskCreate() {
   
   
     return (
-        <div style={{ margin: '0 auto', width: '100%', height: '100%' }}>
-        <p className='border' style={{width: '100%', height: '93%'}}>
-        <h3 style={{textAlign: 'center', marginTop: 'auto'}}>New Task</h3>
+        <div style={{width: '100%'}}>
+        <p className='border'>
+        <h3 className='auto-center'>New Task</h3>
         <form onSubmit={handleFormSubmit}>
             <TextField
             label="Name"
@@ -154,7 +154,7 @@ function TaskCreate() {
             className='pad'
             style={{ marginRight: '20px', marginBottom: '10px' }}
             />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className='column'>
             <div>
               <label>Choose a place:   </label>
               <Select
@@ -205,11 +205,12 @@ function TaskCreate() {
                 ))}
               </Select>
             </div>
-            <Button variant="contained" color="primary" type="submit" style={{ margin: '5% auto 0', backgroundColor: 'darkblue'}}>
-            Add Task
-            </Button>
-          </div>
-
+          <div className='auto-center'>
+          <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
+            Add Api key
+          </Button>
+        </div>
+        </div>
         </form>
         </p>
         </div>
