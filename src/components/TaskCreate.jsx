@@ -19,7 +19,6 @@ function TaskCreate() {
     const [selectedApikey, setSelectedApiKey] = useState('');
     const [selectedCoordinates, setSelectedCoordinates] = useState('');
 
-    const [subTasks, setSubTasks] = useState([]);
 
 
     useEffect(() => {
@@ -105,79 +104,16 @@ function TaskCreate() {
 
       const handleFormSubmit = async (e) => {
         e.preventDefault();
-    
-        const subTasksData = selectedPlaces.map((place) => {
-            return {
-                coordinates: {
-                    name: selectedCoordinates.name, // Zakładam, że selectedCoordinates zawiera obiekt coordinates
-                    lat: selectedCoordinates.lat,
-                    lon: selectedCoordinates.lon,
-                    radius: selectedCoordinates.radius,
-                },
-                place: {
-                    value: place.value,
-                },
-                status: "waiting",
-                start: "2019-08-24T14:15:22Z",
-                finish: "2019-08-24T14:15:22Z",
-                items_collected: -2147483648,
-            };
-        });
-    
-        try {
-            for (const subTaskData of subTasksData) {
-                console.log(subTaskData)
-                const response = await fetch('https://15minadmin.1213213.xyz/gmaps/subtask/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(subTaskData),
-                });
 
-                console.log(JSON.stringify(subTaskData))
-    
-                if (response.ok) {
-                    console.log('Pomyślnie utworzono subtask.');
-                    setSubTasks((prevSubTasks) => [...prevSubTasks, subTaskData]);
-                } else {
-                    console.error('Błąd podczas tworzenia subtask.');
-                }
-            }
-    
-            // Po zakończeniu żądań POST dla subtasków utwórz obiekt taskData
-            const taskData = {
-                subTask: subTasksData,
-                credentials: selectedApikey,
-                name: taskName,
-            };
-    
-            // Wyślij żądanie POST dla zadania
-            const taskResponse = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(taskData),
-            });
-    
-            if (taskResponse.ok) {
-                console.log('Pomyślnie utworzono zadanie.');
-            } else {
-                console.error('Błąd podczas tworzenia zadania.');
-            }
-        } catch (error) {
-            console.error('Błąd podczas komunikacji z serwerem', error);
-        }
-        setselectedPlaces([])
-        // Po zakończeniu żądań POST dla subtasków utwórz obiekt taskData
+        const places = selectedPlaces.map(place => place.id);
+
         const taskData = {
-            subTask: subTasks,
-            credentials: selectedApikey,
+            places: places,
             name: taskName,
+            credentials: selectedApikey.id,
+            coordinates: selectedCoordinates.id,
         };
         try{
-            // Wyślij żądanie POST dla zadania
             const taskResponse = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
                 method: 'POST',
                 headers: {
@@ -194,14 +130,18 @@ function TaskCreate() {
             } catch (error) {
             console.error('Błąd podczas komunikacji z serwerem', error);
             }
+
+        setselectedPlaces([])
+        setSelectedCoordinates([])
+        setSelectedApiKey([])
+
     };
   
-  // ...
   
   
     return (
         <div style={{ margin: '0 auto', width: '100%', height: '100%' }}>
-        <p className='border' style={{width: '100%', height: '97%'}}>
+        <p className='border' style={{width: '100%', height: '93%'}}>
         <h3 style={{textAlign: 'center', marginTop: 'auto'}}>New Task</h3>
         <form onSubmit={handleFormSubmit}>
             <TextField
@@ -214,7 +154,10 @@ function TaskCreate() {
             className='pad'
             style={{ marginRight: '20px', marginBottom: '10px' }}
             />
-            <Select
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div>
+              <label>Choose a place:   </label>
+              <Select
                 label="Places"
                 value={selectedPlaces} // Zmienione na tablicę
                 onChange={(e) => setselectedPlaces(e.target.value)} // Zmienione na tablicę
@@ -222,17 +165,51 @@ function TaskCreate() {
                 variant="outlined"
                 style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
                 id="category"
-            >
+              >
                 {places.map((place) => (
-                    <MenuItem key={place} value={place}>
-                        {place.value}
-                    </MenuItem>
+                  <MenuItem key={place.id} value={place}>
+                    {place.value}
+                  </MenuItem>
                 ))}
-            </Select>
-
-            <Button variant="contained" color="primary" type="submit" style={{ display: 'block', margin: '25% auto 0', backgroundColor: 'darkblue'}}>
+              </Select>
+            </div>
+            <div>
+              <label>Choose an API key:   </label>
+              <Select
+                label="Apikey"
+                value={selectedApikey}
+                onChange={(e) => setSelectedApiKey(e.target.value)}
+                variant="outlined"
+                style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
+              >
+                {apikey.map((apikey) => (
+                  <MenuItem key={apikey.id} value={apikey}>
+                    {apikey.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+            <div>
+              <label>Choose coordinates:   </label>
+              <Select
+                label="Coordinates"
+                value={selectedCoordinates}
+                onChange={(e) => setSelectedCoordinates(e.target.value)}
+                variant="outlined"
+                style={{ width: '40%', marginRight: '20px' }}
+              >
+                {coordinates.map((coordinates) => (
+                  <MenuItem key={coordinates.id} value={coordinates}>
+                    {coordinates.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+            <Button variant="contained" color="primary" type="submit" style={{ margin: '5% auto 0', backgroundColor: 'darkblue'}}>
             Add Task
             </Button>
+          </div>
+
         </form>
         </p>
         </div>
@@ -243,32 +220,7 @@ function TaskCreate() {
 export default TaskCreate;
 
 
-/*
+
             
-            <Select
-                label="Apikey"
-                value={selectedApikey}
-                onChange={(e) => setSelectedApiKey(e.target.value)}
-                variant="outlined"
-                style={{ width: '40%', marginRight: '20px'}}
-            >
-                {apikey.map((apikey) => (
-                <MenuItem key={apikey} value={apikey}>
-                    {apikey.name}
-                </MenuItem>
-                ))}
-            </Select>
-            <Select
-                label="Coordinates"
-                value={selectedCoordinates}
-                onChange={(e) => setSelectedCoordinates(e.target.value)}
-                variant="outlined"
-                style={{ width: '40%', marginRight: '20px'}}
-            >
-                {coordinates.map((coordinates) => (
-                <MenuItem key={coordinates} value={coordinates}>
-                    {coordinates.name}
-                </MenuItem>
-                ))}
-            </Select>
-            */
+
+            
