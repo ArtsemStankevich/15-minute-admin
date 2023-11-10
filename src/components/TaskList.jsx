@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Table from './Table';
-import TextFilter from './Table';
+import TableContainer from './TableContainer';
+import {Container} from 'reactstrap'
+import "bootstrap/dist/css/bootstrap.min.css"
+import { SelectColumnFilter } from './Filters';
 
 
 function TaskList() {
@@ -13,27 +15,32 @@ function TaskList() {
         Header: 'Task Name',
         accessor: 'name',
         sortable: true,
+        disableFilters: true
       },
       {
         Header: 'Status',
         accessor: 'status',
         sortable: true,
-        Filter: TextFilter,
+        Filter: SelectColumnFilter,
+        
       },
       {
         Header: 'Items Collected',
         accessor: 'items_collected',
         sortable: true,
+        disableFilters: true
       },
       {
         Header: 'Errors',
         accessor: 'error_subtask_count',
         sortable: true,
+        disableFilters: true
       },
       {
         Header: 'Run/Stop/Cancel',
         accessor: 'actions',
         id: 'runStopCancel',
+        disableFilters: true
       },
     ],
     []
@@ -66,9 +73,9 @@ function TaskList() {
   }, []);
 
   return (
-    <div>
-      <Table columns={columns} data={tasks} />
-    </div>
+    <Container style={{ marginTop: 100 }}>
+      <TableContainer columns={columns} data={tasks} />
+    </Container>
   );
 }
 

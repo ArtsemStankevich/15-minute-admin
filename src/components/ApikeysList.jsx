@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Table from './Table';
+import TableContainer from './TableContainer';
 
 
 function ApikeysList() {
@@ -12,6 +12,8 @@ function ApikeysList() {
         Header: 'Api Name',
         accessor: 'name',
         sortable: true,
+        disableFilters: true
+
       },
     ],
     []
@@ -45,7 +47,7 @@ function ApikeysList() {
 
   return (
     <div>
-      <Table columns={columns} data={Api} />
+      <TableContainer columns={columns} data={Api} />
     </div>
   );
 }

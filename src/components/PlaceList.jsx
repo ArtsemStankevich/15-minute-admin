@@ -1,5 +1,5 @@
 import React, {useState, useEffect } from 'react';
-import Table from './Table';
+import TableContainer from './TableContainer';
 
 function PlaceList() {
 
@@ -11,6 +11,8 @@ function PlaceList() {
         Header: 'Place Name',
         accessor: 'value',
         sortable: true,
+        disableFilters: true
+
       },
 
     ],
@@ -45,7 +47,7 @@ function PlaceList() {
 
   return (
     <div>
-      <Table columns={columns} data={placesData} />
+      <TableContainer columns={columns} data={placesData} />
     </div>
   );
 }

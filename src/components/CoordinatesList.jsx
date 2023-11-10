@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Table from './Table';
+import TableContainer from './TableContainer';
 
 
 function CoordinatesList() {
@@ -12,21 +12,29 @@ function CoordinatesList() {
         Header: 'Coordinates Name',
         accessor: 'name',
         sortable: true,
+        disableFilters: true
+
       },
       {
         Header: 'Lat',
         accessor: 'lat',
         sortable: true,
+        disableFilters: true
+
       },
       {
         Header: 'Lon',
         accessor: 'lon',
         sortable: true,
+        disableFilters: true
+
       },
       {
         Header: 'Radius',
         accessor: 'radius',
         sortable: true,
+        disableFilters: true
+
       },
     ],
     []
@@ -60,7 +68,7 @@ function CoordinatesList() {
 
   return (
     <div>
-      <Table columns={columns} data={Coordinates} />
+      <TableContainer columns={columns} data={Coordinates} />
     </div>
   );
 }
