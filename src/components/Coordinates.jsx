@@ -1,7 +1,6 @@
 import React from 'react';
 import './style/Categories.css';
 import { CssBaseline, Grid } from '@mui/material';
-import CoordinatesCreate from './CoordinatesCreate';
 import CoordinatesList from './CoordinatesList';
 
 
@@ -13,9 +12,6 @@ function Coordinates() {
     <>
     <CssBaseline />
     <Grid container spacing={1}>
-      <Grid item xs={12}>
-        <CoordinatesCreate />
-      </Grid>
       <Grid item xs={12}>
         <CoordinatesList />
       </Grid>

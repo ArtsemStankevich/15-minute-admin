@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import TableContainer from './TableContainer';
 import {Container} from 'reactstrap'
-import "bootstrap/dist/css/bootstrap.min.css"
 import { SelectColumnFilter } from './Filters';
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import TaskCreate from './TaskCreate';
 
 function TaskList() {
 
@@ -46,7 +46,7 @@ function TaskList() {
     []
   );
 
-  useEffect(() => {
+
     
     const fetchTasks = async () => {
       try {
@@ -69,11 +69,18 @@ function TaskList() {
       }
     };
 
-    fetchTasks();
-  }, []);
-
-  return (
-    <Container style={{ marginTop: 100 }}>
+    useEffect(() => {
+      fetchTasks();
+    }, []);
+  
+    const handleTaskCreated = () => {
+      // Po utworzeniu klucza API odśwież listę
+      fetchTasks();
+    };
+  
+    return (
+      <Container>
+        <TaskCreate onTaskCreated={handleTaskCreated} />
       <TableContainer columns={columns} data={tasks} />
     </Container>
   );

@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './style/Categories.css';
 
-function ApikeysCreate() {
+function ApikeysCreate({ onApiCreated }) {
   const [newNameApi, setNewNameApi] = useState('');
   const [newTokenApi, setNewTokenApi] = useState('');
 
@@ -29,6 +29,7 @@ function ApikeysCreate() {
         // Wysłano z powodzeniem
         console.log('Pomyślnie utworzono klucz API.');
         // Możesz również zaktualizować stan lub zresetować pola formularza
+        onApiCreated();
         setNewNameApi('');
         setNewTokenApi('');
       } else {
@@ -41,7 +42,7 @@ function ApikeysCreate() {
 
   return (
     <div>
-    <p className='border'>
+    <p className='borderer'>
         <h3 className='auto-center'>New Api Key</h3>
         <form onSubmit={handleFormSubmit}>
           <TextField
