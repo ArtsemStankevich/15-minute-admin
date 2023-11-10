@@ -12,7 +12,7 @@ function Coordinates() {
   return (
     <>
     <CssBaseline />
-    <Grid container spacing={1} style={{ width: '100%' }}>
+    <Grid container spacing={1}>
       <Grid item xs={12}>
         <CoordinatesCreate />
       </Grid>
