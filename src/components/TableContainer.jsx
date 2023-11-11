@@ -26,7 +26,7 @@ function TableContainer({ columns, data }) {
       data,
       initialState: {
         pageIndex: 0,
-        pageSize: 3,
+        pageSize: 10,
         defaultColumn: { Filter: DefaultColumnFilter },
       },
     },
