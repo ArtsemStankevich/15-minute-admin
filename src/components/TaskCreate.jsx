@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import './style/Categories.css';
 
 
-function TaskCreate() {
+function TaskCreate( {onTaskCreated} ) {
 
     
 
@@ -130,18 +130,18 @@ function TaskCreate() {
             } catch (error) {
             console.error('Błąd podczas komunikacji z serwerem', error);
             }
-
+        onTaskCreated();
         setselectedPlaces([])
         setSelectedCoordinates([])
         setSelectedApiKey([])
-
+        setTaskName("")
     };
   
   
   
     return (
         <div style={{width: '100%'}}>
-        <p className='border'>
+        <p className='borderer'>
         <h3 className='auto-center'>New Task</h3>
         <form onSubmit={handleFormSubmit}>
             <TextField
@@ -207,9 +207,11 @@ function TaskCreate() {
             </div>
           <div className='auto-center'>
           <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
-            Add Api key
+            Add Task
           </Button>
+          
         </div>
+        
         </div>
         </form>
         </p>

@@ -19,7 +19,7 @@
     border: none;
   }
 
-  hr{
-    border: 2px solid rgb(35, 37, 159);
+  .header-border{
+    border: 2px solid rgb(28, 30, 138);
 
   }

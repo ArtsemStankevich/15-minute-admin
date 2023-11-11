@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './style/Categories.css';
 
-function ApikeysCreate() {
+function ApikeysCreate({ onCoordinateCreated }) {
   const [newNameCoordinates, setnewNameCoordinates] = useState('');
   const [newLon, setNewLon] = useState('');
   const [newLat, setNewLat] = useState('');
@@ -36,6 +36,7 @@ function ApikeysCreate() {
         // Wysłano z powodzeniem
         console.log('Pomyślnie utworzono klucz API.');
         // Możesz również zaktualizować stan lub zresetować pola formularza
+        onCoordinateCreated();
         setnewNameCoordinates('');
         setNewLon('');
       } else {
@@ -48,7 +49,7 @@ function ApikeysCreate() {
 
   return (
     <div>
-    <p className='border'>
+    <p className='borderer'>
         <h3 className='auto-center'>New Coordinates</h3>
         <form onSubmit={handleFormSubmit}>
           <TextField
@@ -92,7 +93,7 @@ function ApikeysCreate() {
           />
         <div className='auto-center'>
           <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
-            Add Api key
+            Add Coordinate
           </Button>
         </div>
         </form>
