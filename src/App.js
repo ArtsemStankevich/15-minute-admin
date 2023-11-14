@@ -1,6 +1,5 @@
-// App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import AuthLogin from './components/authorization/AuthLogin';
 import useToken from './useToken';
@@ -15,15 +14,25 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Header />} />
+        <Route path="/login" element={<AuthLogin setToken={setToken} />} />
         <Route
-          path="/login"
-          element={!token ? <AuthLogin setToken={setToken} /> : <Navigate to="/" />}
+          path="/"
+          element={
+            token ? (
+              <>
+                <Header />
+                <Routes>
+                  <Route path="places" element={<Places />} />
+                  <Route path="tasks" element={<Tasks />} />
+                  <Route path="apiKeys" element={<APIKeys />} />
+                  <Route path="coordinates" element={<Coordinates />} />
+                </Routes>
+              </>
+            ) : (
+              <AuthLogin setToken={setToken} />
+            )
+          }
         />
-        <Route path="/places" element={token ? <Places /> : <Navigate to="/login" />} />
-        <Route path="/tasks" element={token ? <Tasks /> : <Navigate to="/login" />} />
-        <Route path="/apiKeys" element={token ? <APIKeys /> : <Navigate to="/login" />} />
-        <Route path="/coordinates" element={token ? <Coordinates /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
   );

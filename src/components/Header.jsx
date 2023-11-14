@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import './style/Header.css';
@@ -42,6 +42,11 @@ function Header() {
             Coordinates
           </Button>
         </ButtonGroup>
+        <Link to="/login">
+          <Button className="header-button" variant="contained">
+            Login
+          </Button>
+        </Link>
       </div>
       <hr className='header-border'></hr>
       <div>

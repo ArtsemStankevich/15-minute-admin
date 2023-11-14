@@ -1,29 +1,31 @@
-// AuthLogin.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import './Login.css';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 async function loginUser(credentials, navigate) {
-  return fetch('https://15minadmin.1213213.xyz/users/token/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
+    return fetch('https://15minadmin.1213213.xyz/users/token/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
     })
-    .then((data) => {
-      navigate('/'); // Przekieruj użytkownika na stronę główną po zalogowaniu
-      return data.access;
-    });
-}
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        navigate('/'); // Przekieruj użytkownika na stronę główną po zalogowaniu
+        return data.access;
+      });
+  }
 
 export default function AuthLogin({ setToken }) {
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -36,15 +38,12 @@ export default function AuthLogin({ setToken }) {
         },
         navigate
       );
-      console.log(token);
       setToken(token);
+      window.location.reload();
     } catch (error) {
       console.error('Error logging in:', error.message);
     }
   };
-
-  const [username, setUserName] = useState('');
-  const [password, setPassword] = useState('');
 
   return (
     <div className="login-wrapper">
