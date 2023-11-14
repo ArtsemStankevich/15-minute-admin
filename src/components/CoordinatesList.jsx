@@ -44,10 +44,16 @@ function CoordinatesList() {
     
   const fetchTasks = async () => {
     try {
+
+      const tokenString = sessionStorage.getItem('token');
+      const userToken = JSON.parse(tokenString);
+
+      if (userToken) {
       const response = await fetch('https://15minadmin.1213213.xyz/gmaps/coordinates/', {
         method: 'GET',
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${userToken}`,
         },
       });
     //  console.log(response)
@@ -57,7 +63,11 @@ function CoordinatesList() {
       //  console.log(data)
       } else {
         console.error('Błąd pobierania danych z serwera');
+
       }
+    } else {
+      console.error('Brak tokenu użytkownika.');
+    }
     } catch (error) {
       console.error('Błąd pobierania danych z serwera', error);
     }

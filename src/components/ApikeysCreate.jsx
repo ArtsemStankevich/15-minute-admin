@@ -10,6 +10,16 @@ function ApikeysCreate({ onApiCreated }) {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+    // Pobierz token z sessionStorage
+    const tokenString = sessionStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+
+    // Sprawdź, czy token istnieje
+    if (!userToken) {
+      console.error('Brak tokenu użytkownika.');
+      return;
+    }
+
     // Przygotuj dane do wysłania na serwer
     const apiData = {
       token: newTokenApi,
@@ -21,6 +31,7 @@ function ApikeysCreate({ onApiCreated }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`, // Dodaj token do nagłówka Authorization
         },
         body: JSON.stringify(apiData), // Zamień dane na format JSON
       });
@@ -42,7 +53,7 @@ function ApikeysCreate({ onApiCreated }) {
 
   return (
     <div>
-    <p className='borderer'>
+      <p className='borderer'>
         <h3 className='auto-center'>New Api Key</h3>
         <form onSubmit={handleFormSubmit}>
           <TextField
@@ -62,13 +73,12 @@ function ApikeysCreate({ onApiCreated }) {
             variant="outlined"
             value={newTokenApi}
             onChange={(e) => setNewTokenApi(e.target.value)}
-
           />
-        <div className='auto-center'>
-          <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
-            Add Api key
-          </Button>
-        </div>
+          <div className='auto-center'>
+            <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
+              Add Api key
+            </Button>
+          </div>
         </form>
       </p>
     </div>
