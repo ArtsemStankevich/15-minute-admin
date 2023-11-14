@@ -1,33 +1,64 @@
-import React, { useState } from 'react';
+import React , { useState } from 'react';
+import './Login.css';
+import PropTypes from 'prop-types';
 
-function AuthLogin ({ onLogin }){
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Tutaj możesz umieścić logikę logowania, np. poprzez zapytanie do serwera
-    // Po poprawnym zalogowaniu wywołaj funkcję onLogin przekazaną jako prop
-    onLogin();
-  };
+async function loginUser(credentials) {
+    return fetch('https://15minadmin.1213213.xyz/users/token/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => data.access);
+  }
 
-  return (
-    <div>
-      <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-    </div>
-  );
-};
+export default function AuthLogin( { setToken } ) {
 
-export default AuthLogin;
+    const handleSubmit = async e => {
+        e.preventDefault();
+        try {
+          const token = await loginUser({
+            username,
+            password
+          });
+          console.log(token);
+          setToken(token);
+        } catch (error) {
+          console.error('Error logging in:', error.message);
+        }
+      };
+
+
+    const [username, setUserName] = useState();
+    const [password, setPassword] = useState();
+    return(
+        <div className="login-wrapper">
+        <h1>Please Log In</h1>
+        <form onSubmit={handleSubmit} >
+            <label>
+            <p>Username</p>
+            <input type="text" onChange={e => setUserName(e.target.value)}/>
+            </label>
+            <label>
+            <p>Password</p>
+            <input type="password" onChange={e => setPassword(e.target.value)}/>
+            </label>
+            <div>
+            <button type="submit">Submit</button>
+            </div>
+        </form>
+        </div>
+  )
+}
+
+AuthLogin.propTypes = {
+    setToken: PropTypes.func.isRequired
+}

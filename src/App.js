@@ -1,31 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Header from './components/Header';
-import AuthPage from './components/authorization/AuthPage';
+import './App.css';
+import AuthLogin from './components/authorization/AuthLogin';
+import useToken from './useToken';
+
+
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleLogin = () => {
-    // Tutaj możesz umieścić logikę logowania, np. poprzez zapytanie do serwera
-    // Po poprawnym zalogowaniu ustaw stan isAuthenticated na true
-    setIsAuthenticated(true);
-  };
+  const { token, setToken } = useToken();
 
-  const handleLogout = () => {
-    // Tutaj możesz umieścić logikę wylogowania, np. poprzez zapytanie do serwera
-    // Po poprawnym wylogowaniu ustaw stan isAuthenticated na false
-    setIsAuthenticated(false);
-  };
+
+  console.log(token)
+
+  if(!token) {
+    return <AuthLogin setToken={setToken} />
+  }
 
   return (
     <div>
-      {isAuthenticated ? (
-        <Header onLogout={handleLogout} />
-      ) : (
-        <AuthPage onLogin={handleLogin} />
-      )}
+      <Header />
     </div>
   );
-}
+  
+
+  }
 
 export default App;
