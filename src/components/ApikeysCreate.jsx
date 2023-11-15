@@ -11,7 +11,7 @@ function ApikeysCreate({ onApiCreated }) {
     e.preventDefault();
 
     // Pobierz token z sessionStorage
-    const tokenString = sessionStorage.getItem('token');
+    const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
 
     // Sprawdź, czy token istnieje

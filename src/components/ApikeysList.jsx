@@ -21,7 +21,7 @@ function ApikeysList() {
   const fetchApi = async () => {
     try {
 
-      const tokenString = sessionStorage.getItem('token');
+      const tokenString = localStorage.getItem('token');
       const userToken = JSON.parse(tokenString);
 
       if (userToken) {

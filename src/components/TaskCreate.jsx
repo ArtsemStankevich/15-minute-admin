@@ -106,7 +106,7 @@ function TaskCreate( {onTaskCreated} ) {
         e.preventDefault();
 
 
-        const tokenString = sessionStorage.getItem('token');
+        const tokenString = localStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
     
         // Sprawdź, czy token istnieje

@@ -50,7 +50,7 @@ function TaskList() {
     
     const fetchTasks = async () => {
       try {
-        const tokenString = sessionStorage.getItem('token');
+        const tokenString = localStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
         if (userToken) {
         const response = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
