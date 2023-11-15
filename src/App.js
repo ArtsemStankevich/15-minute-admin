@@ -1,5 +1,6 @@
+// App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import AuthLogin from './components/authorization/AuthLogin';
 import useToken from './useToken';
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<AuthLogin setToken={setToken} />} />
         <Route
-          path="/"
+          path="/*"
           element={
             token ? (
               <>
@@ -26,6 +27,7 @@ function App() {
                   <Route path="tasks" element={<Tasks />} />
                   <Route path="apiKeys" element={<APIKeys />} />
                   <Route path="coordinates" element={<Coordinates />} />
+                  <Route index element={<Navigate to="/tasks" replace />} />
                 </Routes>
               </>
             ) : (
