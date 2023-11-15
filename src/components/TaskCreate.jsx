@@ -105,6 +105,16 @@ function TaskCreate( {onTaskCreated} ) {
       const handleFormSubmit = async (e) => {
         e.preventDefault();
 
+
+        const tokenString = localStorage.getItem('token');
+        const userToken = JSON.parse(tokenString);
+    
+        // Sprawdź, czy token istnieje
+        if (!userToken) {
+          console.error('Brak tokenu użytkownika.');
+          return;
+        }
+
         const places = selectedPlaces.map(place => place.id);
 
         const taskData = {
@@ -118,6 +128,7 @@ function TaskCreate( {onTaskCreated} ) {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userToken}`, // Dodaj token do nagłówka Authorization
                 },
                 body: JSON.stringify(taskData),
             });

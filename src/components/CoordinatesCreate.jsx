@@ -15,6 +15,16 @@ function ApikeysCreate({ onCoordinateCreated }) {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+
+    // Sprawdź, czy token istnieje
+    if (!userToken) {
+      console.error('Brak tokenu użytkownika.');
+      return;
+    }
+
     // Przygotuj dane do wysłania na serwer
     const apiData = {
       name: newNameCoordinates,
@@ -28,6 +38,8 @@ function ApikeysCreate({ onCoordinateCreated }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`, // Dodaj token do nagłówka Authorization
+
         },
         body: JSON.stringify(apiData), // Zamień dane na format JSON
       });

@@ -20,18 +20,27 @@ function ApikeysList() {
 
   const fetchApi = async () => {
     try {
-      const response = await fetch('https://15minadmin.1213213.xyz/gmaps/credential/', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
 
-      if (response.ok) {
-        const data = await response.json();
-        setApi(data);
+      const tokenString = localStorage.getItem('token');
+      const userToken = JSON.parse(tokenString);
+
+      if (userToken) {
+        const response = await fetch('https://15minadmin.1213213.xyz/gmaps/credential/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userToken}`, // Dodaj token do nagłówka Authorization
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setApi(data);
+        } else {
+          console.error('Błąd pobierania danych z serwera');
+        }
       } else {
-        console.error('Błąd pobierania danych z serwera');
+        console.error('Brak tokenu użytkownika.');
       }
     } catch (error) {
       console.error('Błąd pobierania danych z serwera', error);
