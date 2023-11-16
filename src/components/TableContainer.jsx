@@ -36,6 +36,66 @@ function TableContainer({ columns, data }) {
 
   );
 
+  const runTask = async (taskId) => {
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+
+    // Sprawdź, czy token istnieje
+    if (!userToken) {
+      console.error('Brak tokenu użytkownika.');
+      return;
+    }
+    try {
+      const response = await fetch(`https://15minadmin.1213213.xyz/gmaps/task/${taskId}/running/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Dodaj token do nagłówka Authorization
+          'Authorization': `Bearer ${userToken}`,
+        },
+      });
+
+      if (response.ok) {
+        console.log('Pomyślnie uruchomiono zadanie.');
+        // Tutaj możesz obsłużyć dodatkowe kroki po pomyślnym uruchomieniu zadania
+      } else {
+        console.error('Błąd podczas uruchamiania zadania.');
+      }
+    } catch (error) {
+      console.error('Błąd podczas komunikacji z serwerem', error);
+    }
+  };
+
+  const stopTask = async (taskId) => {
+    const tokenString = localStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+
+    // Sprawdź, czy token istnieje
+    if (!userToken) {
+      console.error('Brak tokenu użytkownika.');
+      return;
+    }
+    try {
+      const response = await fetch(`https://15minadmin.1213213.xyz/gmaps/task/${taskId}/cancel/`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Dodaj token do nagłówka Authorization
+          'Authorization': `Bearer ${userToken}`,
+        },
+      });
+
+      if (response.ok) {
+        console.log('Pomyślnie zatrzymano zadanie.');
+        // Tutaj możesz obsłużyć dodatkowe kroki po pomyślnym zatrzymaniu zadania
+      } else {
+        console.error('Błąd podczas zatrzymywania zadania.');
+      }
+    } catch (error) {
+      console.error('Błąd podczas komunikacji z serwerem', error);
+    }
+  };
+
   const generateSortingIndicator = column => {
     return column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""
   }
@@ -48,6 +108,14 @@ function TableContainer({ columns, data }) {
     const page = event.target.value ? Number(event.target.value) - 1 : 0
     gotoPage(page)
   }
+
+  const handleActionClick = (taskId, action) => {
+    if (action === 'run') {
+      runTask(taskId);
+    } else if (action === 'stop') {
+      stopTask(taskId);
+    }
+  };
 
   return (
     <Fragment>
@@ -69,29 +137,43 @@ function TableContainer({ columns, data }) {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()} className={row.index % 2 === 0 ? 'even' : ''}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>
-                      {cell.column.id === 'runStopCancel' ? (
-                        <div>
-                          <button className="table-button">Run</button>
-                          <button className="table-button">Stop</button>
-                          <button className="table-button">Cancel</button>
-                        </div>
-                      ) : (
-                        cell.render('Cell')
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
+        {page.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()} className={row.index % 2 === 0 ? 'even' : ''}>
+              {row.cells.map((cell) => {
+                return (
+                  <td {...cell.getCellProps()}>
+                    {cell.column.id === 'runStopCancel' ? (
+                      <div>
+                        {console.log(row.values)}
+                        {row.values.status === 'running' && (
+                          <button
+                            className="table-button"
+                            onClick={() => handleActionClick(row.original.id, 'stop')}
+                          >
+                            Stop
+                          </button>
+                        )}
+                        {row.values.status === 'waiting' && (
+                          <button
+                            className="table-button"
+                            onClick={() => handleActionClick(row.original.id, 'run')}
+                          >
+                            Run
+                          </button>
+                        )}
+                      </div>
+                    ) : (
+                      cell.render('Cell')
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tbody>
       </Table>
     <Row style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
     <Col md={3}>
