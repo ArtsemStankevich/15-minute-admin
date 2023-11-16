@@ -8,6 +8,7 @@ import Places from './components/Places';
 import Tasks from './components/Tasks';
 import APIKeys from './components/APIkeys';
 import Coordinates from './components/Coordinates';
+import Schedule from './components/Schedule'
 
 function App() {
   const { token, setToken } = useToken();
@@ -27,6 +28,8 @@ function App() {
                   <Route path="tasks" element={<Tasks />} />
                   <Route path="apiKeys" element={<APIKeys />} />
                   <Route path="coordinates" element={<Coordinates />} />
+                  <Route path="apiKeys" element={<APIKeys />} />
+                  <Route path="schedule" element={<Schedule />} />
                   <Route index element={<Navigate to="/tasks" replace />} />
                 </Routes>
               </>

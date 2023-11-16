@@ -41,6 +41,12 @@ function Header() {
           >
             Coordinates
           </Button>
+          <Button
+            className={`header-button ${selectedTab === 'Schedule' ? 'active' : ''}`}
+            onClick={() => handleNavigation('Schedule')}
+          >
+            Schedule
+          </Button>
         </ButtonGroup>
         <Link to="/login">
           <Button className="header-button" variant="contained">

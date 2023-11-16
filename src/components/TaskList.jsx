@@ -12,10 +12,28 @@ function TaskList() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Task Name',
-        accessor: 'name',
+        Header: 'Credential',
+        accessor: 'template.credentials.name', // Dodaj tę linię
         sortable: true,
-        disableFilters: true
+        disableFilters: true,
+      },
+      {
+        Header: 'Coordinate',
+        accessor: 'template.coordinates.name', // Dodaj tę linię
+        sortable: true,
+        disableFilters: true,
+      },
+      {
+        Header: 'Place',
+        accessor: 'template.place.value', // Dodaj tę linię
+        sortable: true,
+        disableFilters: true,
+      },
+      {
+        Header: 'Schedule',
+        accessor: 'template.schedule.name', // Dodaj tę linię
+        sortable: true,
+        disableFilters: true,
       },
       {
         Header: 'Status',
@@ -27,12 +45,6 @@ function TaskList() {
       {
         Header: 'Items Collected',
         accessor: 'items_collected',
-        sortable: true,
-        disableFilters: true
-      },
-      {
-        Header: 'Errors',
-        accessor: 'error_subtask_count',
         sortable: true,
         disableFilters: true
       },
