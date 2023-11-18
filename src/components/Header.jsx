@@ -50,7 +50,7 @@ function Header() {
         </ButtonGroup>
         <Link to="/login">
           <Button className="header-button" variant="contained">
-            Login
+            Logout
           </Button>
         </Link>
       </div>

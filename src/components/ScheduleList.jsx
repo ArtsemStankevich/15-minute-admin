@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TableContainer from './TableContainer';
 import ScheduleCreate from './ScheduleCreate';
 import {Container} from 'reactstrap'
+import { useNavigate } from 'react-router-dom';
 
 function ScheduleList() {
+  const navigate = useNavigate();
   const [Schedule, setSchedule] = useState([]);
 
   const columns = React.useMemo(
@@ -18,11 +20,39 @@ function ScheduleList() {
     []
   );
 
-  const fetchSchedule = async () => {
+  const fetchSchedule = useCallback(async() => {
+
+
+
     try {
+
+      const tokenRefreshString = localStorage.getItem('refreshToken');
+      const userRefreshToken = JSON.parse(tokenRefreshString);
 
       const tokenString = localStorage.getItem('token');
       const userToken = JSON.parse(tokenString);
+
+      const tokenRefresh = {
+        refresh: userRefreshToken,
+      };
+
+      const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tokenRefresh),
+      });
+
+      console.log(responseToken);
+      if (responseToken.ok) {
+        const data = await responseToken.json();
+        localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
+        localStorage.setItem('token', JSON.stringify(data.access));
+      } else {
+        console.error('Błąd podczas refresh token');
+      }
+
 
       if (userToken) {
         const response = await fetch('https://15minadmin.1213213.xyz/gmaps/schedule/', {
@@ -38,18 +68,20 @@ function ScheduleList() {
           setSchedule(data);
         } else {
           console.error('Błąd pobierania danych z serwera');
+          navigate('/login');
         }
       } else {
         console.error('Brak tokenu użytkownika.');
       }
     } catch (error) {
       console.error('Błąd pobierania danych z serwera', error);
+      navigate('/login');
     }
-  };
+  }, [navigate])
 
   useEffect(() => {
     fetchSchedule();
-  }, []);
+  }, [fetchSchedule]);
 
   const handleScheduleCreated = () => {
     // Po utworzeniu klucza Schedule odśwież listę
