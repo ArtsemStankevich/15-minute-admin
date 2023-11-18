@@ -24,28 +24,33 @@ function ApikeysList() {
     try {
       const tokenString = localStorage.getItem('token');
       const userToken = JSON.parse(tokenString);
-/*
+
+      const tokenRefreshString = localStorage.getItem('refreshToken');
+      const userRefreshToken = JSON.parse(tokenRefreshString);
+
       const tokenRefresh = {
-        refresh: userToken,
+        refresh: userRefreshToken,
       };
-*/
+
       if (userToken) {
-/*        const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
+
+        const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${userToken}`, // Dodaj token do nagłówka Authorization
           },
           body: JSON.stringify(tokenRefresh),
         });
+
         console.log(responseToken);
         if (responseToken.ok) {
           const data = await responseToken.json();
+          localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
           localStorage.setItem('token', JSON.stringify(data.access));
         } else {
           console.error('Błąd podczas refresh token');
         }
-*/
+
         const response = await fetch('https://15minadmin.1213213.xyz/gmaps/credential/', {
           method: 'GET',
           headers: {

@@ -20,6 +20,7 @@ async function loginUser(credentials, navigate) {
       return response.json();
     })
     .then((data) => {
+      localStorage.setItem("refreshToken", JSON.stringify(data.refresh))
       navigate('/');
       return data.access;
     });
