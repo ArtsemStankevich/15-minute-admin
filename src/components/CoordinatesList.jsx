@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TableContainer from './TableContainer';
 import CoordinatesCreate from './CoordinatesCreate'
 import {Container} from 'reactstrap'
+import { useNavigate } from 'react-router-dom';
+
 
 function CoordinatesList() {
-
+  const navigate = useNavigate();
   const [Coordinates, setNewCoordinates] = useState([])
 
   const columns = React.useMemo(
@@ -42,7 +44,7 @@ function CoordinatesList() {
   );
 
     
-  const fetchCoordinates = async () => {
+  const fetchCoordinates  = useCallback(async() => {
     try {
 
       const tokenString = localStorage.getItem('token');
@@ -63,6 +65,7 @@ function CoordinatesList() {
       //  console.log(data)
       } else {
         console.error('Błąd pobierania danych z serwera');
+        navigate('/login');
 
       }
     } else {
@@ -70,14 +73,16 @@ function CoordinatesList() {
     }
     } catch (error) {
       console.error('Błąd pobierania danych z serwera', error);
+      navigate('/login');
+
     }
-  };
+  }, [navigate])
 
 
 
   useEffect(() => {
     fetchCoordinates();
-  }, []);
+  }, [fetchCoordinates]);
 
   const handleCoordinateCreated = () => {
     // Po utworzeniu klucza API odśwież listę

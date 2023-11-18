@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TableContainer from './TableContainer';
 import ScheduleCreate from './ScheduleCreate';
 import {Container} from 'reactstrap'
+import { useNavigate } from 'react-router-dom';
 
 function ScheduleList() {
+  const navigate = useNavigate();
   const [Schedule, setSchedule] = useState([]);
 
   const columns = React.useMemo(
@@ -18,7 +20,7 @@ function ScheduleList() {
     []
   );
 
-  const fetchSchedule = async () => {
+  const fetchSchedule = useCallback(async() => {
     try {
 
       const tokenString = localStorage.getItem('token');
@@ -38,18 +40,20 @@ function ScheduleList() {
           setSchedule(data);
         } else {
           console.error('Błąd pobierania danych z serwera');
+          navigate('/login');
         }
       } else {
         console.error('Brak tokenu użytkownika.');
       }
     } catch (error) {
       console.error('Błąd pobierania danych z serwera', error);
+      navigate('/login');
     }
-  };
+  }, [navigate])
 
   useEffect(() => {
     fetchSchedule();
-  }, []);
+  }, [fetchSchedule]);
 
   const handleScheduleCreated = () => {
     // Po utworzeniu klucza Schedule odśwież listę

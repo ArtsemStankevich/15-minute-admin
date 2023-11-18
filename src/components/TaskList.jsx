@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TableContainer from './TableContainer';
 import {Container} from 'reactstrap'
 import { SelectColumnFilter } from './Filters';
 import "bootstrap/dist/css/bootstrap.min.css";
 import TaskCreate from './TaskCreate';
+import { useNavigate } from 'react-router-dom';
 
 function TaskList() {
+  const navigate = useNavigate();
 
   const [tasks, setTasks] = useState([])
 
@@ -60,7 +62,7 @@ function TaskList() {
 
 
     
-    const fetchTasks = async () => {
+    const fetchTasks = useCallback(async() => {
       try {
         const tokenString = localStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
@@ -79,18 +81,20 @@ function TaskList() {
         //  console.log(data)
         } else {
           console.error('Błąd pobierania danych z serwera');
+          navigate('/login');
         }
       } else {
         console.error('Brak tokenu użytkownika.');
       }
       } catch (error) {
         console.error('Błąd pobierania danych z serwera', error);
+        navigate('/login');
       }
-    };
+    }, [navigate])
 
     useEffect(() => {
       fetchTasks();
-    }, []);
+    }, [fetchTasks]);
   
     const handleTaskCreated = () => {
       // Po utworzeniu klucza API odśwież listę
