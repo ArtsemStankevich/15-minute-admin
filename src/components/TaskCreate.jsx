@@ -1,24 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import './style/Categories.css';
 
 
-function TaskCreate( {onTaskCreated} ) {
+function TaskCreate({ onTaskCreated }) {
+    const [places, setPlace] = useState([]);
+    const [schedule, setSchedule] = useState([]);
+    const [apikey, setApiKey] = useState([]);
+    const [coordinates, setCoordinates] = useState([]);
 
-
-
-    const [places, setPlace] = useState([])
-    const [schedule, setSchedule] = useState([])
-    const [apikey, setApiKey] = useState([])
-    const [coordinates, setCoordinates] = useState([])
-
-    const [selectedPlace, setSelectedPlace] = useState('');
+    const [selectedPlaces, setSelectedPlaces] = useState([]);
     const [selectedApikey, setSelectedApiKey] = useState('');
     const [selectedSchedule, setSelectedSchedule] = useState('');
     const [selectedCoordinates, setSelectedCoordinates] = useState('');
 
+    const [selectedCategories, setSelectedCategories] = useState([]);
+
+    const handleParentChange = (categoryName) => {
+      const category = places.find((cat) => cat.category_name === categoryName);
+
+      if (!category) {
+        console.error(`Nie znaleziono kategorii o nazwie: ${categoryName}`);
+        return;
+      }
+
+      const isCategorySelected = selectedCategories.includes(categoryName);
+      const newSelectedCategories = isCategorySelected
+        ? selectedCategories.filter((cat) => cat !== categoryName)
+        : [...selectedCategories, categoryName];
+
+      setSelectedCategories(newSelectedCategories);
+
+      const newSelectedPlaces = isCategorySelected
+        ? selectedPlaces.filter((place) => !category.places.some((p) => p.value === place))
+        : [
+            ...new Set([
+              ...selectedPlaces,
+              categoryName,
+              ...category.places.map((p) => p.value),
+            ]),
+          ];
+
+      setSelectedPlaces(newSelectedPlaces);
+    };
+
+    const handlePlaceChange = (placeId) => {
+      const newSelectedPlaces = [...selectedPlaces];
+
+      const index = newSelectedPlaces.indexOf(placeId);
+
+      if (index !== -1) {
+        newSelectedPlaces.splice(index, 1);
+      } else {
+        newSelectedPlaces.push(placeId);
+      }
+
+      setSelectedPlaces(newSelectedPlaces);
+    };
 
 
     useEffect(() => {
@@ -183,7 +225,7 @@ function TaskCreate( {onTaskCreated} ) {
 
 
         const templateData = {
-          place: selectedPlace.id,
+          place: selectedPlaces.id,
           credentials: selectedApikey.id,
           coordinates: selectedCoordinates.id,
           schedule: selectedSchedule.id,
@@ -236,7 +278,7 @@ function TaskCreate( {onTaskCreated} ) {
       }
       
       onTaskCreated();
-      setSelectedPlace([]);
+      setSelectedPlaces([]);
       setSelectedCoordinates([]);
       setSelectedApiKey([]);
       setSelectedSchedule([]);
@@ -250,25 +292,40 @@ function TaskCreate( {onTaskCreated} ) {
     return (
         <div style={{width: '100%'}}>
         <p className='borderer'>
-        <h3 className='auto-center'>New Task</h3>
+        <h3 className='auto-center'>Create New Task</h3>
         <form onSubmit={handleFormSubmit}>
             <div className='column'>
-            <div>
-              <label>Choose a place:   </label>
-              <Select
-                label="Places"
-                value={selectedPlace} // Zmienione na tablicę
-                onChange={(e) => setSelectedPlace(e.target.value)} // Zmienione na tablicę
-                variant="outlined"
-                style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
-              >
-                {places.map((place) => (
-                  <MenuItem key={place.id} value={place}>
-                    {place.value}
-                  </MenuItem>
+              <div className='checkbox-categories'>
+                {/* Wyświetl checkboxy dla miejsc */}
+                {places.map((category) => (
+                  <div key={category.category_name}>
+                    <FormControlLabel
+                      label={category.category_name}
+                      control={
+                        <Checkbox
+                          checked={selectedCategories.includes(category.category_name)}
+                          onChange={() => handleParentChange(category.category_name)}
+                        />
+                      }
+                    />
+                    <div className='checkbox-places' style={{ marginLeft: '20px' }}>
+                      {/* Wyświetl checkboxy dla miejsc w danej kategorii */}
+                      {category.places.map((place) => (
+                        <FormControlLabel
+                          key={place.id}
+                          label={place.value}
+                          control={
+                            <Checkbox
+                              checked={selectedPlaces.includes(place.value)}
+                              onChange={() => handlePlaceChange(place.value)}
+                            />
+                          }
+                        />
+                      ))}
+                    </div>
+                  </div>
                 ))}
-              </Select>
-            </div>
+              </div>
             <div>
               <label>Choose an API key:   </label>
               <Select
