@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import { useTable, useSortBy, usePagination, useFilters } from 'react-table';
-import { Table, Row, Col, Button, Input } from 'reactstrap';
+import { Table} from 'reactstrap';
+//import { Table, Row, Col, Button, Input } from 'reactstrap';
 import './style/Categories.css';
 import { Filter, DefaultColumnFilter } from './Filters';
 
@@ -11,15 +12,15 @@ function TableContainer({ columns, data }) {
     headerGroups,
     prepareRow,
     page,
-    pageOptions,
-    pageCount,
-    state: { pageIndex, pageSize }, 
-    gotoPage,
-    previousPage,
-    nextPage,
-    canPreviousPage,
-    canNextPage,
-    setPageSize,
+//    pageOptions,
+//    pageCount,
+//    state: { pageIndex, pageSize }, 
+//    gotoPage,
+//    previousPage,
+//    nextPage,
+//    canPreviousPage,
+//    canNextPage,
+//    setPageSize,
   } = useTable(
     {
       columns,
@@ -100,7 +101,7 @@ function TableContainer({ columns, data }) {
     return column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""
   }
 
-  const onChangeInSelect = event => {
+/*  const onChangeInSelect = event => {
     setPageSize(Number(event.target.value))
   }
   
@@ -108,7 +109,7 @@ function TableContainer({ columns, data }) {
     const page = event.target.value ? Number(event.target.value) - 1 : 0
     gotoPage(page)
   }
-
+*/
   const handleActionClick = (taskId, action) => {
     if (action === 'run') {
       runTask(taskId);
@@ -175,6 +176,7 @@ function TableContainer({ columns, data }) {
         })}
       </tbody>
       </Table>
+    {/*
     <Row style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
     <Col md={3}>
       <Button
@@ -230,6 +232,7 @@ function TableContainer({ columns, data }) {
       </Button>
     </Col>
   </Row>
+        */}
     </Fragment>
   );
 }
