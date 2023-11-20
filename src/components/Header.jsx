@@ -24,12 +24,6 @@ function Header() {
             Tasks
           </Button>
           <Button
-            className={`header-button ${selectedTab === 'places' ? 'active' : ''}`}
-            onClick={() => handleNavigation('places')}
-          >
-            Places
-          </Button>
-          <Button
             className={`header-button ${selectedTab === 'apiKeys' ? 'active' : ''}`}
             onClick={() => handleNavigation('apiKeys')}
           >
