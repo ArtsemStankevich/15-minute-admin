@@ -7,6 +7,16 @@
     height: 93%;
   }
 
+  .checkbox-categories {
+    display: flex;
+  }
+
+  .checkbox-places {
+    display: flex;
+    flex-direction: column;
+  }
+
+  
 
 
   .border-max {
