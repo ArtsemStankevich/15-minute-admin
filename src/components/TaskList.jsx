@@ -14,47 +14,42 @@ function TaskList() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Credential',
-        accessor: 'template.credentials.name', // Dodaj tę linię
+        Header: 'Place name',
+        accessor: 'place.value', // Dodaj tę linię
         sortable: true,
         disableFilters: true,
       },
       {
         Header: 'Coordinate',
-        accessor: 'template.coordinates.name', // Dodaj tę linię
+        accessor: 'coordinates.name', // Dodaj tę linię
         sortable: true,
         disableFilters: true,
       },
       {
-        Header: 'Place',
-        accessor: 'template.place.value', // Dodaj tę linię
+        Header: 'Repeat every',
+        accessor: 'schedule.every', // Dodaj tę linię
+        sortable: true,
+        id: 'schedule',
+        disableFilters: true,
+      },
+      {
+        Header: 'Token',
+        accessor: 'credentials.name', // Dodaj tę linię
         sortable: true,
         disableFilters: true,
       },
       {
-        Header: 'Schedule',
-        accessor: 'template.schedule.name', // Dodaj tę linię
-        sortable: true,
-        disableFilters: true,
+        Header: 'Start',
+        accessor: 'actions',
+        id: 'start',
+        disableFilters: true
       },
       {
-        Header: 'Status',
-        accessor: 'status',
+        Header: 'last status',
+        accessor: 'last_status',
         sortable: true,
         Filter: SelectColumnFilter,
         
-      },
-      {
-        Header: 'Items Collected',
-        accessor: 'items_collected',
-        sortable: true,
-        disableFilters: true
-      },
-      {
-        Header: 'Run/Stop/Cancel',
-        accessor: 'actions',
-        id: 'runStopCancel',
-        disableFilters: true
       },
     ],
     []
