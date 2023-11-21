@@ -34,6 +34,34 @@ function ApikeysCreate({ onCoordinateCreated }) {
     };
 
     try {
+
+      const tokenRefreshString = localStorage.getItem('refreshToken');
+      const userRefreshToken = JSON.parse(tokenRefreshString);
+
+      const tokenString = localStorage.getItem('token');
+      const userToken = JSON.parse(tokenString);
+
+      const tokenRefresh = {
+        refresh: userRefreshToken,
+      };
+
+      const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tokenRefresh),
+      });
+
+      console.log(responseToken);
+      if (responseToken.ok) {
+        const data = await responseToken.json();
+        localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
+        localStorage.setItem('token', JSON.stringify(data.access));
+      } else {
+        console.error('Błąd podczas refresh token');
+      }
+
       const response = await fetch('https://15minadmin.1213213.xyz/gmaps/coordinates/', {
         method: 'POST',
         headers: {
@@ -71,7 +99,6 @@ function ApikeysCreate({ onCoordinateCreated }) {
             variant="outlined"
             value={newNameCoordinates}
             onChange={(e) => setnewNameCoordinates(e.target.value)}
-            className="pad"
             style={{ marginRight: '20px' }}
           />
           <TextField
@@ -81,7 +108,6 @@ function ApikeysCreate({ onCoordinateCreated }) {
             variant="outlined"
             value={newLon}
             onChange={(e) => setNewLon(e.target.value)}
-            className="pad"
             style={{ marginRight: '20px' }}
           />
           <TextField
@@ -91,7 +117,6 @@ function ApikeysCreate({ onCoordinateCreated }) {
             variant="outlined"
             value={newLat}
             onChange={(e) => setNewLat(e.target.value)}
-            className="pad"
             style={{ marginRight: '20px' }}
           />
           <TextField
@@ -101,13 +126,10 @@ function ApikeysCreate({ onCoordinateCreated }) {
             variant="outlined"
             value={newRadius}
             onChange={(e) => setNewRadius(e.target.value)}
-            className="pad"
           />
-        <div className='auto-center'>
-          <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
+          <Button variant="contained" color="primary" type="submit" style={{ margin: '1% auto 0', backgroundColor: 'darkblue', marginLeft: '30px' }}>
             Add Coordinate
           </Button>
-        </div>
         </form>
       </p>
     </div>

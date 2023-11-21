@@ -4,10 +4,8 @@ import Button from '@mui/material/Button';
 import './style/Categories.css';
 
 function ScheduleCreate({ onScheduleCreated }) {
-  const [newNameSchedule, setNewNameSchedule] = useState('');
-  const [newDaySchedule, setNewDaySchedule] = useState('');
-  const [newMinuteSchedule, setNewMinuteSchedule] = useState('');
-  const [newHourSchedule, setNewHourSchedule] = useState('');
+  const [newScheduleEvery, setNewScheduleEvery] = useState('');
+  const [newSchedulePeriod, setNewSchedulePeriod] = useState('');
 
 
   const handleFormSubmit = async (e) => {
@@ -25,13 +23,38 @@ function ScheduleCreate({ onScheduleCreated }) {
 
     // Przygotuj dane do wysłania na serwer
     const ScheduleData = {     
-      name: newNameSchedule,
-      day_of_month: newDaySchedule,
-      minute: newMinuteSchedule,
-      hour: newHourSchedule
+      every: newScheduleEvery,
+      period: newSchedulePeriod,
     };
 
     try {
+      const tokenRefreshString = localStorage.getItem('refreshToken');
+      const userRefreshToken = JSON.parse(tokenRefreshString);
+
+      const tokenString = localStorage.getItem('token');
+      const userToken = JSON.parse(tokenString);
+
+      const tokenRefresh = {
+        refresh: userRefreshToken,
+      };
+
+      const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tokenRefresh),
+      });
+
+      console.log(responseToken);
+      if (responseToken.ok) {
+        const data = await responseToken.json();
+        localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
+        localStorage.setItem('token', JSON.stringify(data.access));
+      } else {
+        console.error('Błąd podczas refresh token');
+      }
+
       const response = await fetch('https://15minadmin.1213213.xyz/gmaps/schedule/', {
         method: 'POST',
         headers: {
@@ -46,10 +69,8 @@ function ScheduleCreate({ onScheduleCreated }) {
         console.log('Pomyślnie utworzono klucz Schedule.');
         // Możesz również zaktualizować stan lub zresetować pola formularza
         onScheduleCreated();
-        setNewNameSchedule('');
-        setNewDaySchedule('');
-        setNewMinuteSchedule('');
-        setNewHourSchedule('');
+        setNewScheduleEvery('');
+        setNewSchedulePeriod('');
       } else {
         console.error('Błąd podczas tworzenia klucza Schedule.');
       }
@@ -61,50 +82,30 @@ function ScheduleCreate({ onScheduleCreated }) {
   return (
     <div>
       <p className='borderer'>
-        <h3 className='auto-center'>New Schedule Key</h3>
+        <h3 className='auto-center'>New Schedule</h3>
         <form onSubmit={handleFormSubmit}>
           <TextField
-            label="Name"
+            label="Every"
             multiline
             rows={1}
             variant="outlined"
-            value={newNameSchedule}
-            onChange={(e) => setNewNameSchedule(e.target.value)}
+            value={newScheduleEvery}
+            onChange={(e) => setNewScheduleEvery(e.target.value)}
             className='margin-right'
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Day"
+            label="Period"
             multiline
             rows={1}
             variant="outlined"
-            value={newDaySchedule}
-            onChange={(e) => setNewDaySchedule(e.target.value)}
+            value={newSchedulePeriod}
+            onChange={(e) => setNewSchedulePeriod(e.target.value)}
             style={{ marginRight: '20px' }}
           />
-          <TextField
-            label="Hour"
-            multiline
-            rows={1}
-            variant="outlined"
-            value={newHourSchedule}
-            onChange={(e) => setNewHourSchedule(e.target.value)}
-            style={{ marginRight: '20px' }}
-          />
-          <TextField
-            label="Minute"
-            multiline
-            rows={1}
-            variant="outlined"
-            value={newMinuteSchedule}
-            onChange={(e) => setNewMinuteSchedule(e.target.value)}
-            style={{ marginRight: '20px' }}
-          />
-          <div className='auto-center'>
-            <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
-              Add Schedule key
-            </Button>
-          </div>
+          <Button variant="contained" color="primary" type="submit" style={{ margin: '1% auto 0', backgroundColor: 'darkblue', marginLeft: '12px' }}>
+            Add Schedule
+          </Button>
         </form>
       </p>
     </div>

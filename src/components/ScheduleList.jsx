@@ -11,9 +11,10 @@ function ScheduleList() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Schedule Name',
-        accessor: 'name',
+        Header: 'Repeat every',
+        accessor: (row) => `${row.every} ${row.period}`,
         sortable: true,
+        id: 'schedule',
         disableFilters: true,
       },
     ],

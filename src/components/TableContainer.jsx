@@ -147,20 +147,24 @@ function TableContainer({ columns, data }) {
                   <td {...cell.getCellProps()}>
                     {cell.column.id === 'start' ? (
                       <div>
-                        {console.log(row.values)}
+                        {row.values.last_status === 'waiting' && (
                           <button
                             className="table-button"
                             onClick={() => handleActionClick('run', row.values.start.start)}
                           >
                             Start Now
                           </button>
+                        )}
                       </div>
                     ) : cell.column.id === 'schedule' ? (
                       <div>
-                        
-                        {row.values.schedule} hours
+                        {row.values.schedule}
                       </div>
-                    ) : (
+                    ) : cell.column.id === 'schedulelist' ? (
+                      <div>
+                        {row.values.every}
+                      </div>
+                    )  : (
                       cell.render('Cell')
                     )}
                   </td>

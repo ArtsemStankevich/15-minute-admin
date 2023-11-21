@@ -27,7 +27,7 @@ function TaskList() {
       },
       {
         Header: 'Repeat every',
-        accessor: 'schedule.every', // Dodaj tę linię
+        accessor: (row) => `${row.schedule.every} ${row.schedule.period}`,
         sortable: true,
         id: 'schedule',
         disableFilters: true,
