@@ -101,10 +101,11 @@ function TaskList() {
         //  console.log(data)
         } else {
           console.error('Błąd pobierania danych z serwera');
-          //navigate('/login');!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          navigate('/login');
         }
       } else {
         console.error('Brak tokenu użytkownika.');
+        navigate('/login');
       }
       } catch (error) {
         console.error('Błąd pobierania danych z serwera', error);

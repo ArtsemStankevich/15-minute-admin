@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import { useTable, useSortBy, usePagination, useFilters } from 'react-table';
 import { Table} from 'reactstrap';
+import { Link } from 'react-router-dom';
 //import { Table, Row, Col, Button, Input } from 'reactstrap';
 import './style/Categories.css';
 import { Filter, DefaultColumnFilter } from './Filters';
@@ -145,7 +146,11 @@ function TableContainer({ columns, data }) {
               {row.cells.map((cell) => {
                 return (
                   <td {...cell.getCellProps()}>
-                    {cell.column.id === 'start' ? (
+                        {cell.column.id === 'place.value' ? (
+                        <Link to={`/fullstats/${row.original.id}`}>
+                        {cell.render('Cell')}
+                        </Link>
+                      ) : cell.column.id === 'start' ? (
                       <div>
                         {row.values.last_status === 'waiting' && (
                           <button
