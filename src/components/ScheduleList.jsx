@@ -28,11 +28,12 @@ function ScheduleList() {
 
 
 
+
     try {
 
       const tokenRefreshString = localStorage.getItem('refreshToken');
       const userRefreshToken = JSON.parse(tokenRefreshString);
-
+  
       const tokenString = localStorage.getItem('token');
       const userToken = JSON.parse(tokenString);
 
@@ -40,6 +41,8 @@ function ScheduleList() {
         refresh: userRefreshToken,
       };
 
+      if (userToken) {
+        
       const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
         method: 'POST',
         headers: {
@@ -57,8 +60,9 @@ function ScheduleList() {
         console.error('Błąd podczas refresh token');
       }
 
+      const tokenString = localStorage.getItem('token');
+      const userToken = JSON.parse(tokenString);
 
-      if (userToken) {
         const response = await fetch('https://15minadmin.1213213.xyz/gmaps/schedule/', {
           method: 'GET',
           headers: {

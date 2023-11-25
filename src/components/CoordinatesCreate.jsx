@@ -8,6 +8,7 @@ function ApikeysCreate({ onCoordinateCreated }) {
   const [newLon, setNewLon] = useState('');
   const [newLat, setNewLat] = useState('');
   const [newRadius, setNewRadius] = useState('');
+  const [error, setError] = useState('');
 
   
 
@@ -32,6 +33,17 @@ function ApikeysCreate({ onCoordinateCreated }) {
       lon: newLon,
       radius: newRadius,
     };
+
+    // Sprawdź, czy wartości dla szerokości i długości mieszczą się w odpowiednich zakresach
+    const lat = parseFloat(newLat);
+    const lon = parseFloat(newLon);
+
+    if (isNaN(lat) || isNaN(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+      setError('Invalid latitude or longitude values. Latitude should be in the range -90 to 90, and longitude should be in the range -180 to 180.');
+      return;
+    } else {
+      setError('');
+    }
 
     try {
 
@@ -87,10 +99,11 @@ function ApikeysCreate({ onCoordinateCreated }) {
     }
   };
 
-  return (
+ return (
     <div>
-    <p className='borderer'>
+      <p className='borderer'>
         <h3 className='auto-center'>New Coordinates</h3>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleFormSubmit}>
           <TextField
             label="Name"
@@ -102,21 +115,21 @@ function ApikeysCreate({ onCoordinateCreated }) {
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Lon"
-            multiline
-            rows={1}
-            variant="outlined"
-            value={newLon}
-            onChange={(e) => setNewLon(e.target.value)}
-            style={{ marginRight: '20px' }}
-          />
-          <TextField
             label="Lat"
             multiline
             rows={1}
             variant="outlined"
             value={newLat}
             onChange={(e) => setNewLat(e.target.value)}
+            style={{ marginRight: '20px' }}
+          />
+          <TextField
+            label="Lon"
+            multiline
+            rows={1}
+            variant="outlined"
+            value={newLon}
+            onChange={(e) => setNewLon(e.target.value)}
             style={{ marginRight: '20px' }}
           />
           <TextField

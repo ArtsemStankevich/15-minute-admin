@@ -67,6 +67,9 @@ function TaskList() {
         const tokenRefresh = {
           refresh: userRefreshToken,
         };
+        
+        if (userToken) {
+
   
         const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
           method: 'POST',
@@ -85,7 +88,9 @@ function TaskList() {
           console.error('Błąd podczas refresh token');
         }
 
-        if (userToken) {
+        const tokenString = localStorage.getItem('token');
+        const userToken = JSON.parse(tokenString);
+
         const response = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
           method: 'GET',
           headers: {
