@@ -12,9 +12,8 @@ function ScheduleList() {
     () => [
       {
         Header: 'Repeat every',
-        accessor: (row) => `${row.every} ${row.period}`,
+        accessor: 'human_readable',
         sortable: true,
-        id: 'schedule',
         disableFilters: true,
       },
     ],
@@ -66,6 +65,7 @@ function ScheduleList() {
 
         if (response.ok) {
           const data = await response.json();
+          console.log(data)
           setSchedule(data);
         } else {
           console.error('Błąd pobierania danych z serwera');

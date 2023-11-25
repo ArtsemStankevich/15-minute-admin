@@ -4,8 +4,7 @@ import Button from '@mui/material/Button';
 import './style/Categories.css';
 
 function ScheduleCreate({ onScheduleCreated }) {
-  const [newScheduleEvery, setNewScheduleEvery] = useState('');
-  const [newSchedulePeriod, setNewSchedulePeriod] = useState('');
+  const [newHumanreadable, setNewHumanreadable] = useState('');
 
 
   const handleFormSubmit = async (e) => {
@@ -23,8 +22,7 @@ function ScheduleCreate({ onScheduleCreated }) {
 
     // Przygotuj dane do wysłania na serwer
     const ScheduleData = {     
-      every: newScheduleEvery,
-      period: newSchedulePeriod,
+      human_readable: newHumanreadable,
     };
 
     try {
@@ -69,8 +67,7 @@ function ScheduleCreate({ onScheduleCreated }) {
         console.log('Pomyślnie utworzono klucz Schedule.');
         // Możesz również zaktualizować stan lub zresetować pola formularza
         onScheduleCreated();
-        setNewScheduleEvery('');
-        setNewSchedulePeriod('');
+        setNewHumanreadable('');
       } else {
         console.error('Błąd podczas tworzenia klucza Schedule.');
       }
@@ -85,22 +82,13 @@ function ScheduleCreate({ onScheduleCreated }) {
         <h3 className='auto-center'>New Schedule</h3>
         <form onSubmit={handleFormSubmit}>
           <TextField
-            label="Every"
+            label="Repeat every"
             multiline
             rows={1}
             variant="outlined"
-            value={newScheduleEvery}
-            onChange={(e) => setNewScheduleEvery(e.target.value)}
+            value={newHumanreadable}
+            onChange={(e) => setNewHumanreadable(e.target.value)}
             className='margin-right'
-            style={{ marginRight: '20px' }}
-          />
-          <TextField
-            label="Period"
-            multiline
-            rows={1}
-            variant="outlined"
-            value={newSchedulePeriod}
-            onChange={(e) => setNewSchedulePeriod(e.target.value)}
             style={{ marginRight: '20px' }}
           />
           <Button variant="contained" color="primary" type="submit" style={{ margin: '1% auto 0', backgroundColor: 'darkblue', marginLeft: '12px' }}>

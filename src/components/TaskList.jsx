@@ -27,9 +27,8 @@ function TaskList() {
       },
       {
         Header: 'Repeat every',
-        accessor: (row) => `${row.schedule.every} ${row.schedule.period}`,
+        accessor: 'human_readable',
         sortable: true,
-        id: 'schedule',
         disableFilters: true,
       },
       {
