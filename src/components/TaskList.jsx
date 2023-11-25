@@ -40,8 +40,8 @@ function TaskList() {
       },
       {
         Header: 'Start',
-        accessor: 'actions',
-        id: 'start',
+        accessor: 'actions.start:',
+        id: 'startNow',
         disableFilters: true
       },
       {

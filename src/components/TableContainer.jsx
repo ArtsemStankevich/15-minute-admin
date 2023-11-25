@@ -48,6 +48,7 @@ function TableContainer({ columns, data }) {
       return;
     }
     try {
+      console.log(taskApiLink)
       const response = await fetch(`${taskApiLink}`, {
         method: 'GET',
         headers: {
@@ -150,16 +151,14 @@ function TableContainer({ columns, data }) {
                         <Link to={`/fullstats/${row.original.id}`}>
                         {cell.render('Cell')}
                         </Link>
-                      ) : cell.column.id === 'start' ? (
+                      ) : cell.column.id === 'startNow' ? (
                       <div>
-                        {row.values.last_status === 'waiting' && (
                           <button
                             className="table-button"
-                            onClick={() => handleActionClick('run', row.values.start.start)}
+                            onClick={() => handleActionClick('run', row.values.startNow)}
                           >
                             Start Now
                           </button>
-                        )}
                       </div>
                     ) : cell.column.id === 'schedule' ? (
                       <div>
