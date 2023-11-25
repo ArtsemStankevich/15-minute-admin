@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import { useTable, useSortBy, usePagination, useFilters } from 'react-table';
 import { Table} from 'reactstrap';
+import { Link } from 'react-router-dom';
 //import { Table, Row, Col, Button, Input } from 'reactstrap';
 import './style/Categories.css';
 import { Filter, DefaultColumnFilter } from './Filters';
@@ -37,7 +38,7 @@ function TableContainer({ columns, data }) {
 
   );
 
-  const runTask = async (taskId) => {
+  const runTask = async (taskApiLink) => {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
 
@@ -47,7 +48,8 @@ function TableContainer({ columns, data }) {
       return;
     }
     try {
-      const response = await fetch(`https://15minadmin.1213213.xyz/gmaps/task/${taskId}/running/`, {
+      console.log(taskApiLink)
+      const response = await fetch(`${taskApiLink}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +69,7 @@ function TableContainer({ columns, data }) {
     }
   };
 
-  const stopTask = async (taskId) => {
+  const stopTask = async (taskApiLink) => {
     const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
 
@@ -77,7 +79,7 @@ function TableContainer({ columns, data }) {
       return;
     }
     try {
-      const response = await fetch(`https://15minadmin.1213213.xyz/gmaps/task/${taskId}/cancel/`, {
+      const response = await fetch(`${taskApiLink}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -110,11 +112,11 @@ function TableContainer({ columns, data }) {
     gotoPage(page)
   }
 */
-  const handleActionClick = (taskId, action) => {
+  const handleActionClick = (action, taskApiLink) => {
     if (action === 'run') {
-      runTask(taskId);
+      runTask(taskApiLink);
     } else if (action === 'stop') {
-      stopTask(taskId);
+      stopTask(taskApiLink);
     }
   };
 
@@ -145,27 +147,28 @@ function TableContainer({ columns, data }) {
               {row.cells.map((cell) => {
                 return (
                   <td {...cell.getCellProps()}>
-                    {cell.column.id === 'runStopCancel' ? (
+                        {cell.column.id === 'place.value' ? (
+                        <Link to={`/fullstats/${row.original.id}`}>
+                        {cell.render('Cell')}
+                        </Link>
+                      ) : cell.column.id === 'startNow' ? (
                       <div>
-                        {console.log(row.values)}
-                        {row.values.status === 'running' && (
                           <button
                             className="table-button"
-                            onClick={() => handleActionClick(row.original.id, 'stop')}
+                            onClick={() => handleActionClick('run', row.values.startNow)}
                           >
-                            Stop
+                            Start Now
                           </button>
-                        )}
-                        {row.values.status === 'waiting' && (
-                          <button
-                            className="table-button"
-                            onClick={() => handleActionClick(row.original.id, 'run')}
-                          >
-                            Run
-                          </button>
-                        )}
                       </div>
-                    ) : (
+                    ) : cell.column.id === 'schedule' ? (
+                      <div>
+                        {row.values.schedule}
+                      </div>
+                    ) : cell.column.id === 'schedulelist' ? (
+                      <div>
+                        {row.values.every}
+                      </div>
+                    )  : (
                       cell.render('Cell')
                     )}
                   </td>

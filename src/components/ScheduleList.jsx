@@ -11,9 +11,10 @@ function ScheduleList() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Schedule Name',
-        accessor: 'name',
+        Header: 'Repeat every',
+        accessor: (row) => `${row.every} ${row.period}`,
         sortable: true,
+        id: 'schedule',
         disableFilters: true,
       },
     ],
@@ -72,6 +73,7 @@ function ScheduleList() {
         }
       } else {
         console.error('Brak tokenu użytkownika.');
+        navigate('/login');
       }
     } catch (error) {
       console.error('Błąd pobierania danych z serwera', error);

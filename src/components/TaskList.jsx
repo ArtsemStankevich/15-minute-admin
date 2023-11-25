@@ -14,47 +14,42 @@ function TaskList() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Credential',
-        accessor: 'template.credentials.name', // Dodaj tę linię
+        Header: 'Place name',
+        accessor: 'place.value', // Dodaj tę linię
         sortable: true,
         disableFilters: true,
       },
       {
         Header: 'Coordinate',
-        accessor: 'template.coordinates.name', // Dodaj tę linię
+        accessor: 'coordinates.name', // Dodaj tę linię
         sortable: true,
         disableFilters: true,
       },
       {
-        Header: 'Place',
-        accessor: 'template.place.value', // Dodaj tę linię
+        Header: 'Repeat every',
+        accessor: (row) => `${row.schedule.every} ${row.schedule.period}`,
+        sortable: true,
+        id: 'schedule',
+        disableFilters: true,
+      },
+      {
+        Header: 'Token',
+        accessor: 'credentials.name', // Dodaj tę linię
         sortable: true,
         disableFilters: true,
       },
       {
-        Header: 'Schedule',
-        accessor: 'template.schedule.name', // Dodaj tę linię
-        sortable: true,
-        disableFilters: true,
+        Header: 'Start',
+        accessor: 'actions.start:',
+        id: 'startNow',
+        disableFilters: true
       },
       {
-        Header: 'Status',
-        accessor: 'status',
+        Header: 'last status',
+        accessor: 'last_status',
         sortable: true,
         Filter: SelectColumnFilter,
         
-      },
-      {
-        Header: 'Items Collected',
-        accessor: 'items_collected',
-        sortable: true,
-        disableFilters: true
-      },
-      {
-        Header: 'Run/Stop/Cancel',
-        accessor: 'actions',
-        id: 'runStopCancel',
-        disableFilters: true
       },
     ],
     []
@@ -106,10 +101,11 @@ function TaskList() {
         //  console.log(data)
         } else {
           console.error('Błąd pobierania danych z serwera');
-          //navigate('/login');!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          navigate('/login');
         }
       } else {
         console.error('Brak tokenu użytkownika.');
+        navigate('/login');
       }
       } catch (error) {
         console.error('Błąd pobierania danych z serwera', error);

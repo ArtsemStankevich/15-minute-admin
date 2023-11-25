@@ -232,6 +232,33 @@ function TaskCreate({ onTaskCreated }) {
       };
       
       try {
+          const tokenRefreshString = localStorage.getItem('refreshToken');
+          const userRefreshToken = JSON.parse(tokenRefreshString);
+    
+          const tokenString = localStorage.getItem('token');
+          const userToken = JSON.parse(tokenString);
+    
+          const tokenRefresh = {
+            refresh: userRefreshToken,
+          };
+    
+          const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(tokenRefresh),
+          });
+    
+          console.log(responseToken);
+          if (responseToken.ok) {
+            const data = await responseToken.json();
+            localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
+            localStorage.setItem('token', JSON.stringify(data.access));
+          } else {
+            console.error('Błąd podczas refresh token');
+          }
+  
           const taskResponse = await fetch('https://15minadmin.1213213.xyz/gmaps/template/', {
               method: 'POST',
               headers: {
@@ -326,54 +353,61 @@ function TaskCreate({ onTaskCreated }) {
                   </div>
                 ))}
               </div>
-            <div>
-              <label>Choose an API key:   </label>
-              <Select
-                label="Apikey"
-                value={selectedApikey}
-                onChange={(e) => setSelectedApiKey(e.target.value)}
-                variant="outlined"
-                style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
-              >
-                {apikey.map((apikey) => (
-                  <MenuItem key={apikey.id} value={apikey}>
-                    {apikey.name}
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Select
+                  label="Apikey"
+                  value={selectedApikey}
+                  onChange={(e) => setSelectedApiKey(e.target.value)}
+                  variant="outlined"
+                  style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
+                  displayEmpty
+                >
+                  <MenuItem value="" disabled>
+                    Choose an API key
                   </MenuItem>
-                ))}
-              </Select>
-            </div>
-            <div>
-              <label>Choose coordinates:   </label>
-              <Select
-                label="Coordinates"
-                value={selectedCoordinates}
-                onChange={(e) => setSelectedCoordinates(e.target.value)}
-                variant="outlined"
-                style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
-              >
-                {coordinates.map((coordinates) => (
-                  <MenuItem key={coordinates.id} value={coordinates}>
-                    {coordinates.name}
+                  {apikey.map((apikey) => (
+                    <MenuItem key={apikey.id} value={apikey}>
+                      {apikey.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+
+                <Select
+                  label="Coordinates"
+                  value={selectedCoordinates}
+                  onChange={(e) => setSelectedCoordinates(e.target.value)}
+                  variant="outlined"
+                  style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
+                  displayEmpty
+                >
+                  <MenuItem value="" disabled>
+                    Choose coordinates
                   </MenuItem>
-                ))}
-              </Select>
-            </div>
-            <div>
-              <label>Choose Schedule:   </label>
-              <Select
-                label="Schedule"
-                value={selectedSchedule}
-                onChange={(e) => setSelectedSchedule(e.target.value)}
-                variant="outlined"
-                style={{ width: '40%', marginRight: '20px' }}
-              >
-                {schedule.map((schedule) => (
-                  <MenuItem key={schedule.id} value={schedule}>
-                    {schedule.name}
+                  {coordinates.map((coordinates) => (
+                    <MenuItem key={coordinates.id} value={coordinates}>
+                      {coordinates.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+
+                <Select
+                  label="Schedule"
+                  value={selectedSchedule}
+                  onChange={(e) => setSelectedSchedule(e.target.value)}
+                  variant="outlined"
+                  style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
+                  displayEmpty
+                >
+                  <MenuItem value="" disabled>
+                    Choose Schedule
                   </MenuItem>
-                ))}
-              </Select>
-            </div>
+                  {schedule.map((schedule) => (
+                    <MenuItem key={schedule.id} value={schedule}>
+                      {schedule.every} {schedule.period}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </div>
           <div className='auto-center'>
           <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
             Add Task

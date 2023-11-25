@@ -27,6 +27,34 @@ function ApikeysCreate({ onApiCreated }) {
     };
 
     try {
+
+      const tokenRefreshString = localStorage.getItem('refreshToken');
+      const userRefreshToken = JSON.parse(tokenRefreshString);
+
+      const tokenString = localStorage.getItem('token');
+      const userToken = JSON.parse(tokenString);
+
+      const tokenRefresh = {
+        refresh: userRefreshToken,
+      };
+
+      const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tokenRefresh),
+      });
+
+      console.log(responseToken);
+      if (responseToken.ok) {
+        const data = await responseToken.json();
+        localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
+        localStorage.setItem('token', JSON.stringify(data.access));
+      } else {
+        console.error('Błąd podczas refresh token');
+      }
+
       const response = await fetch('https://15minadmin.1213213.xyz/gmaps/credential/', {
         method: 'POST',
         headers: {
@@ -74,11 +102,9 @@ function ApikeysCreate({ onApiCreated }) {
             value={newTokenApi}
             onChange={(e) => setNewTokenApi(e.target.value)}
           />
-          <div className='auto-center'>
-            <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
-              Add Api key
-            </Button>
-          </div>
+          <Button variant="contained" color="primary" type="submit" style={{ margin: '1% auto 0', backgroundColor: 'darkblue', marginLeft: '30px' }}>
+              Add Api Key
+          </Button>
         </form>
       </p>
     </div>
