@@ -22,29 +22,28 @@ function TaskCreate({ onTaskCreated }) {
 
     const handleParentChange = (categoryName) => {
       const category = places.find((cat) => cat.category_name === categoryName);
-
+    
       if (!category) {
         console.error(`Nie znaleziono kategorii o nazwie: ${categoryName}`);
         return;
       }
-
+    
       const isCategorySelected = selectedCategories.includes(categoryName);
       const newSelectedCategories = isCategorySelected
         ? selectedCategories.filter((cat) => cat !== categoryName)
         : [...selectedCategories, categoryName];
-
+    
       setSelectedCategories(newSelectedCategories);
-
+    
       const newSelectedPlaces = isCategorySelected
-        ? selectedPlaces.filter((place) => !category.places.some((p) => p.value === place))
+        ? selectedPlaces.filter((place) => !category.places.some((p) => p.id === place))
         : [
             ...new Set([
               ...selectedPlaces,
-              categoryName,
-              ...category.places.map((p) => p.value),
+              ...category.places.map((p) => p.id),
             ]),
           ];
-
+    
       setSelectedPlaces(newSelectedPlaces);
     };
 
@@ -224,24 +223,23 @@ function TaskCreate({ onTaskCreated }) {
         }
 
 
-        const templateData = {
-          place: selectedPlaces.id,
+        const taskData = {
           credentials: selectedApikey.id,
           coordinates: selectedCoordinates.id,
           schedule: selectedSchedule.id,
-      };
-      
-      try {
+        };
+        
+        try {
           const tokenRefreshString = localStorage.getItem('refreshToken');
           const userRefreshToken = JSON.parse(tokenRefreshString);
-    
+        
           const tokenString = localStorage.getItem('token');
           const userToken = JSON.parse(tokenString);
-    
+        
           const tokenRefresh = {
             refresh: userRefreshToken,
           };
-    
+        
           const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
             method: 'POST',
             headers: {
@@ -249,7 +247,7 @@ function TaskCreate({ onTaskCreated }) {
             },
             body: JSON.stringify(tokenRefresh),
           });
-    
+        
           console.log(responseToken);
           if (responseToken.ok) {
             const data = await responseToken.json();
@@ -258,58 +256,37 @@ function TaskCreate({ onTaskCreated }) {
           } else {
             console.error('Błąd podczas refresh token');
           }
-  
-          const taskResponse = await fetch('https://15minadmin.1213213.xyz/gmaps/template/', {
+          console.log(selectedPlaces)
+          // Iterate through selectedPlaces array
+          for (let i = 0; i < selectedPlaces.length; i++) {
+            // Set the current place value in taskData
+            taskData.place = selectedPlaces[i];
+            console.log(taskData)
+            // Make a fetch request for each place
+            const taskResponse = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
               method: 'POST',
               headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${userToken}`,
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userToken}`,
               },
-              body: JSON.stringify(templateData),
-          });
-      
-          if (taskResponse.ok) {
-              const templateResponseData = await taskResponse.json(); // Pobierz dane z odpowiedzi
-              const templateId = templateResponseData.id; // Pobierz id z odpowiedzi
-      
-              console.log('Pomyślnie utworzono zadanie.');
-      
-              // Następnie użyj templateId w drugim żądaniu POST
-              const taskData = {
-                  template: templateId,
-              };
-      
-              try {
-                  const taskResponse = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
-                      method: 'POST',
-                      headers: {
-                          'Content-Type': 'application/json',
-                          'Authorization': `Bearer ${userToken}`,
-                      },
-                      body: JSON.stringify(taskData),
-                  });
-      
-                  if (taskResponse.ok) {
-                      console.log('Pomyślnie utworzono zadanie.');
-                  } else {
-                      console.error('Błąd podczas tworzenia zadania.');
-                  }
-              } catch (error) {
-                  console.error('Błąd podczas komunikacji z serwerem', error);
-              }
-          } else {
-              console.error('Błąd podczas tworzenia zadania.');
+              body: JSON.stringify(taskData),
+            });
+        
+            if (taskResponse.ok) {
+              console.log(`Pomyślnie utworzono zadanie dla place ${selectedPlaces[i]}`);
+            } else {
+              console.error(`Błąd podczas tworzenia zadania dla place ${selectedPlaces[i]}`);
+            }
           }
-      } catch (error) {
+        } catch (error) {
           console.error('Błąd podczas komunikacji z serwerem', error);
-      }
-      
-      onTaskCreated();
-      setSelectedPlaces([]);
-      setSelectedCoordinates([]);
-      setSelectedApiKey([]);
-      setSelectedSchedule([]);
-      
+        }
+        
+        onTaskCreated();
+        setSelectedPlaces([]);
+        setSelectedCoordinates([]);
+        setSelectedApiKey([]);
+        setSelectedSchedule([]);
 
 
     };
@@ -343,8 +320,8 @@ function TaskCreate({ onTaskCreated }) {
                           label={place.value}
                           control={
                             <Checkbox
-                              checked={selectedPlaces.includes(place.value)}
-                              onChange={() => handlePlaceChange(place.value)}
+                              checked={selectedPlaces.includes(place.id)}
+                              onChange={() => handlePlaceChange(place.id)}
                             />
                           }
                         />
@@ -403,7 +380,7 @@ function TaskCreate({ onTaskCreated }) {
                   </MenuItem>
                   {schedule.map((schedule) => (
                     <MenuItem key={schedule.id} value={schedule}>
-                      {schedule.every} {schedule.period}
+                      {schedule.id}
                     </MenuItem>
                   ))}
                 </Select>
@@ -424,9 +401,3 @@ function TaskCreate({ onTaskCreated }) {
 }
 
 export default TaskCreate;
-
-
-
-            
-
-            

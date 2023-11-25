@@ -1,3 +1,7 @@
+
+
+
+
 import React, { useState, useEffect, useCallback } from 'react';
 import TableContainer from './TableContainer';
 import ScheduleCreate from './ScheduleCreate';
@@ -12,9 +16,8 @@ function ScheduleList() {
     () => [
       {
         Header: 'Repeat every',
-        accessor: (row) => `${row.every} ${row.period}`,
+        accessor: 'id',
         sortable: true,
-        id: 'schedule',
         disableFilters: true,
       },
     ],
@@ -66,6 +69,7 @@ function ScheduleList() {
 
         if (response.ok) {
           const data = await response.json();
+          console.log(data)
           setSchedule(data);
         } else {
           console.error('Błąd pobierania danych z serwera');
@@ -99,3 +103,7 @@ function ScheduleList() {
 }
 
 export default ScheduleList;
+
+            
+
+            
