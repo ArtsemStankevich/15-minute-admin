@@ -5,7 +5,7 @@ import './Login.css';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-async function loginUser(credentials, navigate) {
+async function loginUser(credentials, navigate, setLoginError) {
   return fetch('https://15minadmin.1213213.xyz/users/token/', {
     method: 'POST',
     headers: {
@@ -13,33 +13,38 @@ async function loginUser(credentials, navigate) {
     },
     body: JSON.stringify(credentials),
   })
-    .then((response) => {
+    .then(async (response) => {
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error(data.detail || 'Network response was not ok');
       }
-      return response.json();
-    })
-    .then((data) => {
-      localStorage.setItem("refreshToken", JSON.stringify(data.refresh))
+      localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
       navigate('/');
       return data.access;
+    })
+    .catch((error) => {
+      setLoginError(error.message);
+      throw error;
     });
 }
 
 export default function AuthLogin({ setToken }) {
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoginError(''); // Clear previous login errors
       const token = await loginUser(
         {
           username,
           password,
         },
-        navigate
+        navigate,
+        setLoginError
       );
       setToken(token);
       window.location.reload();
@@ -52,6 +57,7 @@ export default function AuthLogin({ setToken }) {
     <div className="login-wrapper">
       <h1>Please Log In</h1>
       <form onSubmit={handleSubmit}>
+        {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
         <label>
           <p>Username</p>
           <input type="text" onChange={(e) => setUserName(e.target.value)} />
@@ -67,6 +73,7 @@ export default function AuthLogin({ setToken }) {
     </div>
   );
 }
+
 
 AuthLogin.propTypes = {
   setToken: PropTypes.func.isRequired,
