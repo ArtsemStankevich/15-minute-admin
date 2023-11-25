@@ -51,6 +51,9 @@ function ApikeysList() {
           console.error('Błąd podczas refresh token');
         }
 
+        const tokenString = localStorage.getItem('token');
+        const userToken = JSON.parse(tokenString);
+
         const response = await fetch('https://15minadmin.1213213.xyz/gmaps/credential/', {
           method: 'GET',
           headers: {

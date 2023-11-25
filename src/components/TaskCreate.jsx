@@ -19,6 +19,7 @@ function TaskCreate({ onTaskCreated }) {
     const [selectedCoordinates, setSelectedCoordinates] = useState('');
 
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [error, setError] = useState('');
 
     const handleParentChange = (categoryName) => {
       const category = places.find((cat) => cat.category_name === categoryName);
@@ -181,6 +182,7 @@ function TaskCreate({ onTaskCreated }) {
           console.error('Brak tokenu użytkownika.');
           return;
         }
+
         const fetchTasks = async () => {
           try {
             const response = await fetch('https://15minadmin.1213213.xyz/gmaps/coordinates/', {
@@ -212,7 +214,6 @@ function TaskCreate({ onTaskCreated }) {
       const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-
         const tokenString = localStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
     
@@ -228,6 +229,17 @@ function TaskCreate({ onTaskCreated }) {
           coordinates: selectedCoordinates.id,
           schedule: selectedSchedule.id,
         };
+
+        
+        if (
+          selectedPlaces.length === 0 ||
+          !selectedApikey ||
+          !selectedCoordinates ||
+          !selectedSchedule
+        ) {
+          setError('Please fill in all required fields.');
+          return;
+        }
         
         try {
           const tokenRefreshString = localStorage.getItem('refreshToken');
@@ -273,9 +285,11 @@ function TaskCreate({ onTaskCreated }) {
             });
         
             if (taskResponse.ok) {
+              setError('');
               console.log(`Pomyślnie utworzono zadanie dla place ${selectedPlaces[i]}`);
             } else {
               console.error(`Błąd podczas tworzenia zadania dla place ${selectedPlaces[i]}`);
+              setError('Task already exists');
             }
           }
         } catch (error) {
@@ -284,9 +298,11 @@ function TaskCreate({ onTaskCreated }) {
         
         onTaskCreated();
         setSelectedPlaces([]);
-        setSelectedCoordinates([]);
-        setSelectedApiKey([]);
-        setSelectedSchedule([]);
+        setSelectedCoordinates('');
+        setSelectedApiKey('');
+        setSelectedSchedule('');
+        setSelectedCategories([]);
+
 
 
     };
@@ -297,6 +313,7 @@ function TaskCreate({ onTaskCreated }) {
         <div style={{width: '100%'}}>
         <p className='borderer'>
         <h3 className='auto-center'>Create New Task</h3>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleFormSubmit}>
             <div className='column'>
               <div className='checkbox-categories'>
