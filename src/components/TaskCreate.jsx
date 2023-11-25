@@ -22,29 +22,28 @@ function TaskCreate({ onTaskCreated }) {
 
     const handleParentChange = (categoryName) => {
       const category = places.find((cat) => cat.category_name === categoryName);
-
+    
       if (!category) {
         console.error(`Nie znaleziono kategorii o nazwie: ${categoryName}`);
         return;
       }
-
+    
       const isCategorySelected = selectedCategories.includes(categoryName);
       const newSelectedCategories = isCategorySelected
         ? selectedCategories.filter((cat) => cat !== categoryName)
         : [...selectedCategories, categoryName];
-
+    
       setSelectedCategories(newSelectedCategories);
-
+    
       const newSelectedPlaces = isCategorySelected
-        ? selectedPlaces.filter((place) => !category.places.some((p) => p.value === place))
+        ? selectedPlaces.filter((place) => !category.places.some((p) => p.id === place))
         : [
             ...new Set([
               ...selectedPlaces,
-              categoryName,
-              ...category.places.map((p) => p.value),
+              ...category.places.map((p) => p.id),
             ]),
           ];
-
+    
       setSelectedPlaces(newSelectedPlaces);
     };
 
@@ -257,12 +256,12 @@ function TaskCreate({ onTaskCreated }) {
           } else {
             console.error('Błąd podczas refresh token');
           }
-        
+          console.log(selectedPlaces)
           // Iterate through selectedPlaces array
           for (let i = 0; i < selectedPlaces.length; i++) {
             // Set the current place value in taskData
             taskData.place = selectedPlaces[i];
-        
+            console.log(taskData)
             // Make a fetch request for each place
             const taskResponse = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
               method: 'POST',
@@ -321,8 +320,8 @@ function TaskCreate({ onTaskCreated }) {
                           label={place.value}
                           control={
                             <Checkbox
-                              checked={selectedPlaces.includes(place.value)}
-                              onChange={() => handlePlaceChange(place.value)}
+                              checked={selectedPlaces.includes(place.id)}
+                              onChange={() => handlePlaceChange(place.id)}
                             />
                           }
                         />
@@ -381,7 +380,7 @@ function TaskCreate({ onTaskCreated }) {
                   </MenuItem>
                   {schedule.map((schedule) => (
                     <MenuItem key={schedule.id} value={schedule}>
-                      {schedule.every} {schedule.period}
+                      {schedule.id}
                     </MenuItem>
                   ))}
                 </Select>

@@ -12,7 +12,7 @@ function ScheduleList() {
     () => [
       {
         Header: 'Repeat every',
-        accessor: 'human_readable',
+        accessor: 'id',
         sortable: true,
         disableFilters: true,
       },
