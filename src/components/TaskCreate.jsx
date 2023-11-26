@@ -353,7 +353,7 @@ function TaskCreate({ onTaskCreated }) {
                   value={selectedApikey}
                   onChange={(e) => setSelectedApiKey(e.target.value)}
                   variant="outlined"
-                  style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
+                  style={{ width: '40%', marginRight: '20px' }}
                   displayEmpty
                 >
                   <MenuItem value="" disabled>
@@ -371,7 +371,7 @@ function TaskCreate({ onTaskCreated }) {
                   value={selectedCoordinates}
                   onChange={(e) => setSelectedCoordinates(e.target.value)}
                   variant="outlined"
-                  style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
+                  style={{ width: '40%', marginRight: '20px' }}
                   displayEmpty
                 >
                   <MenuItem value="" disabled>
@@ -389,7 +389,7 @@ function TaskCreate({ onTaskCreated }) {
                   value={selectedSchedule}
                   onChange={(e) => setSelectedSchedule(e.target.value)}
                   variant="outlined"
-                  style={{ width: '40%', marginRight: '20px', marginBottom: '10px' }}
+                  style={{ width: '40%', marginRight: '20px'}}
                   displayEmpty
                 >
                   <MenuItem value="" disabled>
@@ -401,13 +401,12 @@ function TaskCreate({ onTaskCreated }) {
                     </MenuItem>
                   ))}
                 </Select>
+
+                <Button variant="contained" color="primary" type="submit" style={{ backgroundColor: 'darkblue' }}>
+                  Add Task
+                </Button>
+                
               </div>
-          <div className='auto-center'>
-          <Button variant="contained" color="primary" type="submit" style={{ margin: '2% auto 0', backgroundColor: 'darkblue' }}>
-            Add Task
-          </Button>
-          
-        </div>
         
         </div>
         </form>

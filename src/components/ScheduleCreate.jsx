@@ -88,7 +88,6 @@ function ScheduleCreate({ onScheduleCreated }) {
             variant="outlined"
             value={newHumanreadable}
             onChange={(e) => setNewHumanreadable(e.target.value)}
-            className='margin-right'
             style={{ marginRight: '20px' }}
           />
           <Button variant="contained" color="primary" type="submit" style={{ margin: '1% auto 0', backgroundColor: 'darkblue', marginLeft: '12px' }}>

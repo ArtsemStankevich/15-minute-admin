@@ -44,7 +44,7 @@ function TaskList() {
         disableFilters: true
       },
       {
-        Header: 'last status',
+        Header: 'Latest status',
         accessor: 'last_status',
         sortable: true,
         Filter: SelectColumnFilter,
