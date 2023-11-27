@@ -3,21 +3,23 @@ import TableContainer from './TableContainer';
 import ApikeysCreate from './ApikeysCreate';
 import { Container } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function ApikeysList() {
   const navigate = useNavigate();
   const [api, setApi] = useState([]);
+  const { t } = useTranslation();
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Api Name',
+        Header: t('Api Name'),
         accessor: 'name',
         sortable: true,
         disableFilters: true,
       },
     ],
-    []
+    [t]
   );
 
   const fetchApi = useCallback(async() => {

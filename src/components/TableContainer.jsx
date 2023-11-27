@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom';
 //import { Table, Row, Col, Button, Input } from 'reactstrap';
 import './style/Categories.css';
 import { Filter, DefaultColumnFilter } from './Filters';
+import { useTranslation } from 'react-i18next';
 
 function TableContainer({ columns, data }) {
+  const { t } = useTranslation();
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -157,7 +160,7 @@ function TableContainer({ columns, data }) {
                             className="table-button"
                             onClick={() => handleActionClick('run', row.values.startNow)}
                           >
-                            Start Now
+                            {t('Start Now')}
                           </button>
                       </div>
                     ) : cell.column.id === 'schedule' ? (

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './style/Categories.css';
+import { useTranslation } from 'react-i18next';
 
 function ApikeysCreate({ onCoordinateCreated }) {
   const [newNameCoordinates, setnewNameCoordinates] = useState('');
@@ -9,6 +10,7 @@ function ApikeysCreate({ onCoordinateCreated }) {
   const [newLat, setNewLat] = useState('');
   const [newRadius, setNewRadius] = useState('');
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   
 
@@ -102,11 +104,11 @@ function ApikeysCreate({ onCoordinateCreated }) {
  return (
     <div>
       <p className='borderer'>
-        <h3 className='auto-center'>New Coordinates</h3>
+        <h3 className='auto-center'>{t('New Coordinates')}</h3>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleFormSubmit}>
           <TextField
-            label="Name"
+            label={t('Coordinates Name')}
             multiline
             rows={1}
             variant="outlined"
@@ -115,7 +117,7 @@ function ApikeysCreate({ onCoordinateCreated }) {
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Lat"
+            label={t('Latitude')}
             multiline
             rows={1}
             variant="outlined"
@@ -124,7 +126,7 @@ function ApikeysCreate({ onCoordinateCreated }) {
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Lon"
+            label={t('Longitude')}
             multiline
             rows={1}
             variant="outlined"
@@ -133,7 +135,7 @@ function ApikeysCreate({ onCoordinateCreated }) {
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Radius"
+            label={t('Radius')}
             multiline
             rows={1}
             variant="outlined"

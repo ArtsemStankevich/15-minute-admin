@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './style/Categories.css';
+import { useTranslation } from 'react-i18next';
 
 function ApikeysCreate({ onApiCreated }) {
   const [newNameApi, setNewNameApi] = useState('');
   const [newTokenApi, setNewTokenApi] = useState('');
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -90,11 +92,11 @@ function ApikeysCreate({ onApiCreated }) {
   return (
     <div>
       <p className='borderer'>
-        <h3 className='auto-center'>New Api Key</h3>
+        <h3 className='auto-center'>{t('New Api Key')}</h3>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleFormSubmit}>
           <TextField
-            label="Name"
+            label={t('Api Name')}
             multiline
             rows={1}
             variant="outlined"
@@ -104,7 +106,7 @@ function ApikeysCreate({ onApiCreated }) {
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Token"
+            label={t('Token')}
             multiline
             rows={1}
             variant="outlined"
@@ -112,7 +114,7 @@ function ApikeysCreate({ onApiCreated }) {
             onChange={(e) => setNewTokenApi(e.target.value)}
           />
           <Button variant="contained" color="primary" type="submit" style={{ margin: '1% auto 0', backgroundColor: 'darkblue', marginLeft: '30px' }}>
-            Add Api Key
+            {t('Add Api Key')}
           </Button>
         </form>
       </p>

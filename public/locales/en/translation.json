@@ -1,0 +1,51 @@
+{
+  "English": "English",
+  "Polski": "Polish",
+  "Niemiecki": "German",
+  "Tasks": "Tasks",
+  "API Keys": "API Keys",
+  "Coordinates": "Coordinates",
+  "Schedule": "Schedule",
+  "Logout": "Logout",
+
+  "Create New Task": "Create New Task",
+  "Choose an API key": "Choose an API key",
+  "Choose Coordinates": "Choose Coordinates",
+  "Choose Schedule": "Choose Schedule",
+  "Add Task": "Add Task",
+
+  "Place name": "Place name",
+  "Coordinate": "Coordinate",
+  "Repeat every": "Repeat every",
+  "Token": "Token",
+  "Start": "Start",
+  "Latest status": "Latest status",
+
+  "Start Now": "Start Now",
+  
+  "New Schedule": "New Schedule",
+  "Minute": "Minute",
+  "Hour": "Hour",
+  "Day of week": "Day of week",
+  "Day of Month": "Day of Month",
+  "Month of Year": "Month of Year",
+  "Add Schedule": "Add Schedule",
+
+  "Coordinates Name": "Coordinates Name",
+  "Latitude": "Latitude",
+  "Longitude": "Longitude",
+  "Radius": "Radius",
+
+  "New Coordinates": "New Coordinates",
+
+  "Api Name": "Api Name",
+
+  "New Api Key": "New Api Key",
+  "Add Api Key": "Add Api Key",
+
+  "Please Log In": "Please Log In",
+  "Username": "Username",
+  "Password": "Password",
+  "Submit": "Submit"
+  
+}

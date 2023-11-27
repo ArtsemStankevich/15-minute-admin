@@ -23,3 +23,8 @@
     border: 2px solid rgb(28, 30, 138);
 
   }
+
+  .language-select {
+    width: 150px; /* Ustaw szerokość na dowolną wartość */
+    height: 37px; /* Ustaw wysokość na dowolną wartość */
+  }

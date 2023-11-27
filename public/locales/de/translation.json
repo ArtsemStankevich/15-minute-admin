@@ -1,0 +1,52 @@
+{
+  "Select Language": "Sprache auswählen",
+  "English": "Englisch",
+  "Polski": "Polnisch",
+  "Niemiecki": "Deutsch",
+  "Tasks": "Aufgaben",
+  "API Keys": "API-Schlüssel",
+  "Coordinates": "Koordinaten",
+  "Schedule": "Zeitplan",
+  "Logout": "Abmelden",
+
+  "Create New Task": "Neue Aufgabe erstellen",
+  "Choose an API key": "Wählen Sie einen API-Schlüssel",
+  "Choose Coordinates": "Wählen Sie Koordinaten",
+  "Choose Schedule": "Wählen Sie einen Zeitplan",
+  "Add Task": "Aufgabe hinzufügen",
+
+  "Place name": "Ortsname",
+  "Coordinate": "Koordinate",
+  "Repeat every": "Wiederhole alle",
+  "Token": "Token",
+  "Start": "Start",
+  "Latest status": "Neuester Status",
+
+  "Start Now": "Jetzt starten",
+
+  "New Schedule": "Neuer Zeitplan",
+  "Minute": "Minute",
+  "Hour": "Stunde",
+  "Day of week": "Wochentag",
+  "Day of Month": "Tag des Monats",
+  "Month of Year": "Monat des Jahres",
+  "Add Schedule": "Zeitplan hinzufügen",
+
+  "Coordinates Name": "Koordinatenname",
+  "Latitude": "Breitengrad",
+  "Longitude": "Längengrad",
+  "Radius": "Radius",
+  
+  "New Coordinates": "Neue Koordinaten",
+
+  "Api Name": "API-Name",
+
+  "New Api Key": "Neuer API-Schlüssel",
+  "Add Api Key": "API-Schlüssel hinzufügen",
+
+  "Please Log In": "Bitte einloggen",
+  "Username": "Benutzername",
+  "Password": "Passwort",
+  "Submit": "Einreichen"
+  
+}

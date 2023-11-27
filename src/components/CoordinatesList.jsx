@@ -3,44 +3,46 @@ import TableContainer from './TableContainer';
 import CoordinatesCreate from './CoordinatesCreate'
 import {Container} from 'reactstrap'
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 function CoordinatesList() {
   const navigate = useNavigate();
   const [Coordinates, setNewCoordinates] = useState([])
+  const { t } = useTranslation();
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Coordinates Name',
+        Header: t('Coordinates Name'),
         accessor: 'name',
         sortable: true,
         disableFilters: true
 
       },
       {
-        Header: 'Lat',
+        Header: t('Latitude'),
         accessor: 'lat',
         sortable: true,
         disableFilters: true
 
       },
       {
-        Header: 'Lon',
+        Header: t('Longitude'),
         accessor: 'lon',
         sortable: true,
         disableFilters: true
 
       },
       {
-        Header: 'Radius',
+        Header: t('Radius'),
         accessor: 'radius',
         sortable: true,
         disableFilters: true
 
       },
     ],
-    []
+    [t]
   );
 
     
