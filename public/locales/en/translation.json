@@ -1,0 +1,38 @@
+{
+    "Select Language" : "Select Language",
+
+    "hello": "Hello, world",
+    "allEvents": "All Events",
+    "calendar": "Calendar",
+    "forVolunteers": "For Volunteers",
+    "theyNeedYou": "They Need You",
+    "login": "Sign in",
+  
+    "back": "Back",
+    "haveBeenSignedIn": "volunteers have been signed in",
+    "moreIsNeeded": "more is needed",
+    "date": "Date",
+    "time": "Time",
+    "category": "Category",
+    "organizer": "Organiser",
+    "selectDate":"Select a date",
+    "location": "Location",
+    "signIn": "Sign In",
+    "moreEventsFromThisOrganizer": "More events from this organiser",
+  
+    "organizedBy": "Organised By",
+    "needed": "Needed",
+    "signedIn": "Signed In",
+    "organisations": "Organisations",
+    "ageRestrictions": "Age Restrictions",
+    "noVolunteerVerificationRequired": "No volunteer verification required",
+    "hideFullyBookedEvents": "Hide fully booked events",
+    "showFilters": "Show Filters",
+    "hideFilters": "Hide Filters",
+  
+    "welcome": "Are you ready to change the world?",
+    "signInToday": "Sign in",
+    "or": "today or",
+    "findEvent": "find an event to join",
+    "mainSearch": "Search"
+  }
