@@ -1,9 +1,8 @@
-// AuthLogin.jsx
-
 import React, { useState } from 'react';
 import './Login.css';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 async function loginUser(credentials, navigate, setLoginError) {
   return fetch('https://15minadmin.1213213.xyz/users/token/', {
@@ -33,6 +32,7 @@ export default function AuthLogin({ setToken }) {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,19 +55,19 @@ export default function AuthLogin({ setToken }) {
 
   return (
     <div className="login-wrapper">
-      <h1>Please Log In</h1>
+      <h1>{t('Please Log In')}</h1>
       <form onSubmit={handleSubmit}>
         {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
         <label>
-          <p>Username</p>
+          <p>{t('Username')}</p>
           <input type="text" onChange={(e) => setUserName(e.target.value)} />
         </label>
         <label>
-          <p>Password</p>
+          <p>{t('Password')}</p>
           <input type="password" onChange={(e) => setPassword(e.target.value)} />
         </label>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit">{t('Submit')}</button>
         </div>
       </form>
     </div>

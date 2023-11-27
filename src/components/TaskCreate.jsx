@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import './style/Categories.css';
-
+import { useTranslation } from 'react-i18next';
 
 function TaskCreate({ onTaskCreated }) {
     const [places, setPlace] = useState([]);
@@ -19,7 +19,10 @@ function TaskCreate({ onTaskCreated }) {
     const [selectedCoordinates, setSelectedCoordinates] = useState('');
 
     const [selectedCategories, setSelectedCategories] = useState([]);
+
     const [error, setError] = useState('');
+
+    const { t } = useTranslation();
 
     const handleParentChange = (categoryName) => {
       const category = places.find((cat) => cat.category_name === categoryName);
@@ -312,7 +315,7 @@ function TaskCreate({ onTaskCreated }) {
     return (
         <div style={{width: '100%'}}>
         <p className='borderer'>
-        <h3 className='auto-center'>Create New Task</h3>
+        <h3 className='auto-center'>{t('Create New Task')}</h3>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleFormSubmit}>
             <div className='column'>
@@ -357,7 +360,7 @@ function TaskCreate({ onTaskCreated }) {
                   displayEmpty
                 >
                   <MenuItem value="" disabled>
-                    Choose an API key
+                    {t('Choose an API key')}
                   </MenuItem>
                   {apikey.map((apikey) => (
                     <MenuItem key={apikey.id} value={apikey}>
@@ -375,7 +378,7 @@ function TaskCreate({ onTaskCreated }) {
                   displayEmpty
                 >
                   <MenuItem value="" disabled>
-                    Choose coordinates
+                  {t('Choose Coordinates')}
                   </MenuItem>
                   {coordinates.map((coordinates) => (
                     <MenuItem key={coordinates.id} value={coordinates}>
@@ -393,7 +396,7 @@ function TaskCreate({ onTaskCreated }) {
                   displayEmpty
                 >
                   <MenuItem value="" disabled>
-                    Choose Schedule
+                  {t('Choose Schedule')}
                   </MenuItem>
                   {schedule.map((schedule) => (
                     <MenuItem key={schedule.id} value={schedule}>
@@ -403,7 +406,7 @@ function TaskCreate({ onTaskCreated }) {
                 </Select>
 
                 <Button variant="contained" color="primary" type="submit" style={{ backgroundColor: 'darkblue' }}>
-                  Add Task
+                {t('Add Task')}
                 </Button>
                 
               </div>

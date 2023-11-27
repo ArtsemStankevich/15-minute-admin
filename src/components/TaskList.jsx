@@ -5,53 +5,55 @@ import { SelectColumnFilter } from './Filters';
 import "bootstrap/dist/css/bootstrap.min.css";
 import TaskCreate from './TaskCreate';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function TaskList() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [tasks, setTasks] = useState([])
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Place name',
+        Header: t('Place name'),
         accessor: 'place.value', // Dodaj tę linię
         sortable: true,
         disableFilters: true,
       },
       {
-        Header: 'Coordinate',
+        Header: t('Coordinate'),
         accessor: 'coordinates.name', // Dodaj tę linię
         sortable: true,
         disableFilters: true,
       },
       {
-        Header: 'Repeat every',
+        Header: t('Repeat every'),
         accessor: 'schedule.human_readable',
         sortable: true,
         disableFilters: true,
       },
       {
-        Header: 'Token',
+        Header: t('Token'),
         accessor: 'credentials.name', // Dodaj tę linię
         sortable: true,
         disableFilters: true,
       },
       {
-        Header: 'Start',
-        accessor: 'actions.start:',
+        Header: t('Start'),
+        accessor: 'actions.start',
         id: 'startNow',
         disableFilters: true
       },
       {
-        Header: 'Latest status',
+        Header: t('Latest status'),
         accessor: 'last_status',
         sortable: true,
         Filter: SelectColumnFilter,
         
       },
     ],
-    []
+    [t]
   );
 
 

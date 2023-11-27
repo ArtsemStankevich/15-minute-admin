@@ -1,27 +1,25 @@
-
-
-
-
 import React, { useState, useEffect, useCallback } from 'react';
 import TableContainer from './TableContainer';
 import ScheduleCreate from './ScheduleCreate';
 import {Container} from 'reactstrap'
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function ScheduleList() {
   const navigate = useNavigate();
   const [Schedule, setSchedule] = useState([]);
+  const { t } = useTranslation();
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Repeat every',
+        Header: t('Repeat every'),
         accessor: 'human_readable',
         sortable: true,
         disableFilters: true,
       },
     ],
-    []
+    [t]
   );
 
   const fetchSchedule = useCallback(async() => {

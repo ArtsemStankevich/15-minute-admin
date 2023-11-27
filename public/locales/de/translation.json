@@ -1,38 +1,52 @@
 {
-    "Select Language" : "Select Language",
+  "Select Language": "Sprache auswählen",
+  "English": "Englisch",
+  "Polski": "Polnisch",
+  "Niemiecki": "Deutsch",
+  "Tasks": "Aufgaben",
+  "API Keys": "API-Schlüssel",
+  "Coordinates": "Koordinaten",
+  "Schedule": "Zeitplan",
+  "Logout": "Abmelden",
 
-    "hello": "Hello, world",
-    "allEvents": "All Events",
-    "calendar": "Calendar",
-    "forVolunteers": "For Volunteers",
-    "theyNeedYou": "They Need You",
-    "login": "Sign in",
+  "Create New Task": "Neue Aufgabe erstellen",
+  "Choose an API key": "Wählen Sie einen API-Schlüssel",
+  "Choose Coordinates": "Wählen Sie Koordinaten",
+  "Choose Schedule": "Wählen Sie einen Zeitplan",
+  "Add Task": "Aufgabe hinzufügen",
+
+  "Place name": "Ortsname",
+  "Coordinate": "Koordinate",
+  "Repeat every": "Wiederhole alle",
+  "Token": "Token",
+  "Start": "Start",
+  "Latest status": "Neuester Status",
+
+  "Start Now": "Jetzt starten",
+
+  "New Schedule": "Neuer Zeitplan",
+  "Minute": "Minute",
+  "Hour": "Stunde",
+  "Day of week": "Wochentag",
+  "Day of Month": "Tag des Monats",
+  "Month of Year": "Monat des Jahres",
+  "Add Schedule": "Zeitplan hinzufügen",
+
+  "Coordinates Name": "Koordinatenname",
+  "Latitude": "Breitengrad",
+  "Longitude": "Längengrad",
+  "Radius": "Radius",
   
-    "back": "Back",
-    "haveBeenSignedIn": "volunteers have been signed in",
-    "moreIsNeeded": "more is needed",
-    "date": "Date",
-    "time": "Time",
-    "category": "Category",
-    "organizer": "Organiser",
-    "selectDate":"Select a date",
-    "location": "Location",
-    "signIn": "Sign In",
-    "moreEventsFromThisOrganizer": "More events from this organiser",
+  "New Coordinates": "Neue Koordinaten",
+
+  "Api Name": "API-Name",
+
+  "New Api Key": "Neuer API-Schlüssel",
+  "Add Api Key": "API-Schlüssel hinzufügen",
+
+  "Please Log In": "Bitte einloggen",
+  "Username": "Benutzername",
+  "Password": "Passwort",
+  "Submit": "Einreichen"
   
-    "organizedBy": "Organised By",
-    "needed": "Needed",
-    "signedIn": "Signed In",
-    "organisations": "Organisations",
-    "ageRestrictions": "Age Restrictions",
-    "noVolunteerVerificationRequired": "No volunteer verification required",
-    "hideFullyBookedEvents": "Hide fully booked events",
-    "showFilters": "Show Filters",
-    "hideFilters": "Hide Filters",
-  
-    "welcome": "Are you ready to change the world?",
-    "signInToday": "Sign in",
-    "or": "today or",
-    "findEvent": "find an event to join",
-    "mainSearch": "Search"
-  }
+}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './style/Categories.css';
+import { useTranslation } from 'react-i18next';
 
 function ScheduleCreate({ onScheduleCreated }) {
   const [newMinute, setNewMinute] = useState('');
@@ -10,6 +11,7 @@ function ScheduleCreate({ onScheduleCreated }) {
   const [newDayOfMonth, setNewDayOfMonth] = useState('');
   const [newMonthOfYear, setNewMonthOfYear] = useState('');
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -93,11 +95,11 @@ function ScheduleCreate({ onScheduleCreated }) {
   return (
     <div>
       <p className='borderer'>
-        <h3 className='auto-center'>New Schedule</h3>
+        <h3 className='auto-center'>{t('New Schedule')}</h3>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleFormSubmit}>
           <TextField
-            label="Minute"
+            label={t('Minute')}
             multiline
             rows={1}
             variant="outlined"
@@ -106,7 +108,7 @@ function ScheduleCreate({ onScheduleCreated }) {
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Hour"
+            label={t('Hour')}
             multiline
             rows={1}
             variant="outlined"
@@ -115,7 +117,7 @@ function ScheduleCreate({ onScheduleCreated }) {
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Day Of Week"
+            label={t('Day of week')}
             multiline
             rows={1}
             variant="outlined"
@@ -124,7 +126,7 @@ function ScheduleCreate({ onScheduleCreated }) {
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Day Of Month"
+            label={t('Day of Month')}
             multiline
             rows={1}
             variant="outlined"
@@ -133,7 +135,7 @@ function ScheduleCreate({ onScheduleCreated }) {
             style={{ marginRight: '20px' }}
           />
           <TextField
-            label="Month Of Year"
+            label={t('Month of Year')}
             multiline
             rows={1}
             variant="outlined"
@@ -142,7 +144,7 @@ function ScheduleCreate({ onScheduleCreated }) {
             style={{ marginRight: '20px' }}
           />
           <Button variant="contained" color="primary" type="submit" style={{ margin: '1% auto 0', backgroundColor: 'darkblue', marginLeft: '12px' }}>
-            Add Schedule
+            {t('Add Schedule')}
           </Button>
         </form>
       </p>

@@ -1,38 +1,51 @@
 {
-    "Select Language": "Wybierz język",
+  "Select Language": "Wybierz język",
+  "English": "Angielski",
+  "Polski": "Polski",
+  "Niemiecki": "Niemiecki",
+  "Tasks": "Zadania",
+  "API Keys": "Klucze API",
+  "Coordinates": "Współrzędne",
+  "Schedule": "Harmonogram",
+  "Logout": "Wyloguj",
 
-    "hello": "Witaj świecie",
-    "allEvents": "Wszystkie wydarzenia",
-    "calendar": "Kalendarz",
-    "forVolunteers": "Dla Wolontariuszy",
-    "theyNeedYou": "Potrzebują Ciebie",
-    "login": "Zaloguj się",
-  
-    "back": "Wróć",
-    "haveBeenSignedIn": "zapisanych wolontariuszy",
-    "moreIsNeeded": "jeszcze potrzebnych",
-    "date": "Data",
-    "time": "Czas",
-    "category": "Kategoria",
-    "organizer": "Organizator",
-    "selectDate":"Wybierz Datę",
-    "location": "Lokalizacja",
-    "signIn": "Zapisz się",
-    "moreEventsFromThisOrganizer": "Więcej wydarzeń od tego organizatora",
-  
-    "organizedBy": "Organizowany przez",
-    "needed": "Potrzebnych wolonatriuszy",
-    "signedIn": "Zapisanych wolontariuszy",
-    "organisations": "Organizacje",
-    "ageRestrictions": "Ograniczenia wiekowe",
-    "noVolunteerVerificationRequired": "Nie potrzebują porozumienia wolontariuszy",
-    "hideFullyBookedEvents": "Ukryj zapełnione wydarzenia",
-    "showFilters": "Pokaż filtry",
-    "hideFilters": "Ukryj filtry",
-  
-    "welcome": "Czy jesteś gotów zmienić świat ?",
-    "signInToday": "Zaloguj się",
-    "or": "już dziś lub",
-    "findEvent": "znajdź wydarzenie dla siebie",
-    "mainSearch": "Wyszukaj"
-  }
+  "Create New Task": "Utwórz nowe zadanie",
+  "Choose an API key": "Wybierz klucz API",
+  "Choose Coordinates": "Wybierz współrzędne",
+  "Choose Schedule": "Wybierz harmonogram",
+  "Add Task": "Dodaj zadanie",
+
+  "Place name": "Nazwa miejsca",
+  "Coordinate": "Współrzędne",
+  "Repeat every": "Powtarzaj co",
+  "Token": "Żeton",
+  "Start": "Uruchom",
+  "Latest status": "Ostatni status",
+
+  "Start Now": "Uruchom teraz",
+
+  "New Schedule": "Nowy Harmonogram",
+  "Minute": "Minuta",
+  "Hour": "Godzina",
+  "Day of week": "Dzień tygodnia",
+  "Day of Month": "Dzień miesiąca",
+  "Month of Year": "Miesiąc roku",
+  "Add Schedule": "Dodaj Harmonogram",
+
+  "Coordinates Name": "Nazwa Współrzędnych",
+  "Latitude": "Szerokość geograficzna",
+  "Longitude": "Długość geograficzna",
+  "Radius": "Promień",
+
+  "New Coordinates": "Nowe Współrzędne",
+
+  "Api Name": "Nazwa API",
+
+  "New Api Key": "Nowy klucz API",
+  "Add Api Key": "Dodaj klucz API",
+
+  "Please Log In": "Proszę zalogować się",
+  "Username": "Nazwa użytkownika",
+  "Password": "Hasło",
+  "Submit": "Zatwierdź"
+}
