@@ -27,7 +27,7 @@ function TaskList() {
       },
       {
         Header: 'Repeat every',
-        accessor: 'schedule.id',
+        accessor: 'schedule.human_readable',
         sortable: true,
         disableFilters: true,
       },

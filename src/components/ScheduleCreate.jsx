@@ -4,8 +4,12 @@ import Button from '@mui/material/Button';
 import './style/Categories.css';
 
 function ScheduleCreate({ onScheduleCreated }) {
-  const [newHumanreadable, setNewHumanreadable] = useState('');
-
+  const [newMinute, setNewMinute] = useState('');
+  const [newHour, setNewHour] = useState('');
+  const [newDayOfWeek, setNewDayOfWeek] = useState('');
+  const [newDayOfMonth, setNewDayOfMonth] = useState('');
+  const [newMonthOfYear, setNewMonthOfYear] = useState('');
+  const [error, setError] = useState('');
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +26,11 @@ function ScheduleCreate({ onScheduleCreated }) {
 
     // Przygotuj dane do wysłania na serwer
     const ScheduleData = {     
-      human_readable: newHumanreadable,
+      minute: newMinute,
+      hour: newHour,
+      day_of_week: newDayOfWeek,
+      day_of_month: newDayOfMonth,
+      month_of_year: newMonthOfYear
     };
 
     try {
@@ -67,9 +75,15 @@ function ScheduleCreate({ onScheduleCreated }) {
         console.log('Pomyślnie utworzono klucz Schedule.');
         // Możesz również zaktualizować stan lub zresetować pola formularza
         onScheduleCreated();
-        setNewHumanreadable('');
+        setNewDayOfMonth('')
+        setNewDayOfWeek('')
+        setNewHour('')
+        setNewMinute('')
+        setNewMonthOfYear('')
       } else {
+        console.log(response)
         console.error('Błąd podczas tworzenia klucza Schedule.');
+        setError('Incorrect data')
       }
     } catch (error) {
       console.error('Błąd podczas komunikacji z serwerem', error);
@@ -80,14 +94,51 @@ function ScheduleCreate({ onScheduleCreated }) {
     <div>
       <p className='borderer'>
         <h3 className='auto-center'>New Schedule</h3>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleFormSubmit}>
           <TextField
-            label="Repeat every"
+            label="Minute"
             multiline
             rows={1}
             variant="outlined"
-            value={newHumanreadable}
-            onChange={(e) => setNewHumanreadable(e.target.value)}
+            value={newMinute}
+            onChange={(e) => setNewMinute(e.target.value)}
+            style={{ marginRight: '20px' }}
+          />
+          <TextField
+            label="Hour"
+            multiline
+            rows={1}
+            variant="outlined"
+            value={newHour}
+            onChange={(e) => setNewHour(e.target.value)}
+            style={{ marginRight: '20px' }}
+          />
+          <TextField
+            label="Day Of Week"
+            multiline
+            rows={1}
+            variant="outlined"
+            value={newDayOfWeek}
+            onChange={(e) => setNewDayOfWeek(e.target.value)}
+            style={{ marginRight: '20px' }}
+          />
+          <TextField
+            label="Day Of Month"
+            multiline
+            rows={1}
+            variant="outlined"
+            value={newDayOfMonth}
+            onChange={(e) => setNewDayOfMonth(e.target.value)}
+            style={{ marginRight: '20px' }}
+          />
+          <TextField
+            label="Month Of Year"
+            multiline
+            rows={1}
+            variant="outlined"
+            value={newMonthOfYear}
+            onChange={(e) => setNewMonthOfYear(e.target.value)}
             style={{ marginRight: '20px' }}
           />
           <Button variant="contained" color="primary" type="submit" style={{ margin: '1% auto 0', backgroundColor: 'darkblue', marginLeft: '12px' }}>
