@@ -400,7 +400,7 @@ function TaskCreate({ onTaskCreated }) {
                   </MenuItem>
                   {schedule.map((schedule) => (
                     <MenuItem key={schedule.id} value={schedule}>
-                      {schedule.id}
+                      {schedule.human_readable}
                     </MenuItem>
                   ))}
                 </Select>
