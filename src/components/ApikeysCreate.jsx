@@ -14,14 +14,10 @@ function ApikeysCreate({ onApiCreated }) {
     e.preventDefault();
 
     // Pobierz token z sessionStorage
-    const tokenString = localStorage.getItem('token');
-    const userToken = JSON.parse(tokenString);
+
 
     // Sprawdź, czy token istnieje
-    if (!userToken) {
-      console.error('Brak tokenu użytkownika.');
-      return;
-    }
+
 
     // Przygotuj dane do wysłania na serwer
     const apiData = {
@@ -40,6 +36,7 @@ function ApikeysCreate({ onApiCreated }) {
 
       const tokenRefreshString = localStorage.getItem('refreshToken');
       const userRefreshToken = JSON.parse(tokenRefreshString);
+
 
       const tokenString = localStorage.getItem('token');
       const userToken = JSON.parse(tokenString);
@@ -64,6 +61,7 @@ function ApikeysCreate({ onApiCreated }) {
       } else {
         console.error('Błąd podczas refresh token');
       }
+
 
       const response = await fetch('https://15minadmin.1213213.xyz/gmaps/credential/', {
         method: 'POST',

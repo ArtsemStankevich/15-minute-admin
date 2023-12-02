@@ -1,5 +1,4 @@
 {
-  "Select Language": "Sprache auswählen",
   "English": "Englisch",
   "Polish": "Polnisch",
   "German": "Deutsch",
@@ -47,6 +46,11 @@
   "Please Log In": "Bitte einloggen",
   "Username": "Benutzername",
   "Password": "Passwort",
-  "Submit": "Einreichen"
+  "Submit": "Einreichen",
+
+  "Finish": "Fertig",
+  "Items Collected": "Gesammelte Artikel",
+  "Status": "Status",
+  "Errors": "Fehler"
   
 }

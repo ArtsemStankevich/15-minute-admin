@@ -19,14 +19,7 @@ function ApikeysCreate({ onCoordinateCreated }) {
     e.preventDefault();
 
 
-    const tokenString = localStorage.getItem('token');
-    const userToken = JSON.parse(tokenString);
 
-    // Sprawdź, czy token istnieje
-    if (!userToken) {
-      console.error('Brak tokenu użytkownika.');
-      return;
-    }
 
     // Przygotuj dane do wysłania na serwer
     const apiData = {

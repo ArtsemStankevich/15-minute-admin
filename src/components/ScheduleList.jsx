@@ -32,14 +32,10 @@ function ScheduleList() {
       const tokenRefreshString = localStorage.getItem('refreshToken');
       const userRefreshToken = JSON.parse(tokenRefreshString);
   
-      const tokenString = localStorage.getItem('token');
-      const userToken = JSON.parse(tokenString);
-
       const tokenRefresh = {
         refresh: userRefreshToken,
       };
 
-      if (userToken) {
         
       const responseToken = await fetch('https://15minadmin.1213213.xyz/users//token/refresh/', {
         method: 'POST',
@@ -77,10 +73,6 @@ function ScheduleList() {
           console.error('Błąd pobierania danych z serwera');
           navigate('/login');
         }
-      } else {
-        console.error('Brak tokenu użytkownika.');
-        navigate('/login');
-      }
     } catch (error) {
       console.error('Błąd pobierania danych z serwera', error);
       navigate('/login');

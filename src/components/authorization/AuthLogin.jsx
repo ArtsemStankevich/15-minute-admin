@@ -54,7 +54,7 @@ export default function AuthLogin({ setToken }) {
   };
 
   return (
-    <div className="login-wrapper">
+    <div className="login-wrapper" data-testid="auth">
       <h1>{t('Please Log In')}</h1>
       <form onSubmit={handleSubmit}>
         {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
