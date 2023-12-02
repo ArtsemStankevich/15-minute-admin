@@ -46,6 +46,10 @@
   "Please Log In": "Please Log In",
   "Username": "Username",
   "Password": "Password",
-  "Submit": "Submit"
+  "Submit": "Submit",
   
+  "Finish": "Finish",
+  "Items Collected": "Items Collected",
+  "Status": "Status",
+  "Errors": "Errors"
 }

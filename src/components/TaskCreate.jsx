@@ -67,18 +67,14 @@ function TaskCreate({ onTaskCreated }) {
 
 
     useEffect(() => {
-    
               // Pobierz token z sessionStorage
         const tokenString = localStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
 
         // Sprawdź, czy token istnieje
-        if (!userToken) {
-          console.error('Brak tokenu użytkownika.');
-          return;
-        }
         const fetchTasks = async () => {
           try {
+
             const response = await fetch('https://15minadmin.1213213.xyz/gmaps/place/', {
               method: 'GET',
               headers: {
@@ -109,10 +105,7 @@ function TaskCreate({ onTaskCreated }) {
         const userToken = JSON.parse(tokenString);
 
         // Sprawdź, czy token istnieje
-        if (!userToken) {
-          console.error('Brak tokenu użytkownika.');
-          return;
-        }
+
         const fetchTasks = async () => {
           try {
             const response = await fetch('https://15minadmin.1213213.xyz/gmaps/schedule/', {
@@ -144,11 +137,7 @@ function TaskCreate({ onTaskCreated }) {
         const tokenString = localStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
 
-        // Sprawdź, czy token istnieje
-        if (!userToken) {
-          console.error('Brak tokenu użytkownika.');
-          return;
-        }
+
     
         const fetchTasks = async () => {
           try {
@@ -163,7 +152,6 @@ function TaskCreate({ onTaskCreated }) {
             if (response.ok) {
               const data = await response.json();
               setApiKey(data);
-              console.log(data)
             } else {
               console.error('Błąd pobierania danych z serwera');
             }
@@ -176,15 +164,11 @@ function TaskCreate({ onTaskCreated }) {
       }, []);
 
       useEffect(() => {
+
         // Pobierz token z sessionStorage
         const tokenString = localStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
 
-        // Sprawdź, czy token istnieje
-        if (!userToken) {
-          console.error('Brak tokenu użytkownika.');
-          return;
-        }
 
         const fetchTasks = async () => {
           try {
@@ -201,9 +185,11 @@ function TaskCreate({ onTaskCreated }) {
               setCoordinates(data);
               console.log(data)
             } else {
+
               console.error('Błąd pobierania danych z serwera');
             }
           } catch (error) {
+
             console.error('Błąd pobierania danych z serwera', error);
           }
         };
@@ -217,23 +203,15 @@ function TaskCreate({ onTaskCreated }) {
       const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        const tokenString = localStorage.getItem('token');
-        const userToken = JSON.parse(tokenString);
+
     
-        // Sprawdź, czy token istnieje
-        if (!userToken) {
-          console.error('Brak tokenu użytkownika.');
-          return;
-        }
-
-
         const taskData = {
           credentials: selectedApikey.id,
           coordinates: selectedCoordinates.id,
           schedule: selectedSchedule.id,
         };
 
-        
+
         if (
           selectedPlaces.length === 0 ||
           !selectedApikey ||
@@ -241,15 +219,13 @@ function TaskCreate({ onTaskCreated }) {
           !selectedSchedule
         ) {
           setError('Please fill in all required fields.');
-          return;
         }
         
+        
+
         try {
           const tokenRefreshString = localStorage.getItem('refreshToken');
           const userRefreshToken = JSON.parse(tokenRefreshString);
-        
-          const tokenString = localStorage.getItem('token');
-          const userToken = JSON.parse(tokenString);
         
           const tokenRefresh = {
             refresh: userRefreshToken,
@@ -262,22 +238,30 @@ function TaskCreate({ onTaskCreated }) {
             },
             body: JSON.stringify(tokenRefresh),
           });
-        
-          console.log(responseToken);
+    
           if (responseToken.ok) {
             const data = await responseToken.json();
             localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
             localStorage.setItem('token', JSON.stringify(data.access));
+
           } else {
             console.error('Błąd podczas refresh token');
           }
-          console.log(selectedPlaces)
-          // Iterate through selectedPlaces array
+
+          if (
+            selectedPlaces.length === 0 ||
+            !selectedApikey ||
+            !selectedCoordinates ||
+            !selectedSchedule
+          ) {
+            setError('Please fill in all required fields.');
+            return;
+          }
+
           for (let i = 0; i < selectedPlaces.length; i++) {
-            // Set the current place value in taskData
+            const tokenString = localStorage.getItem('token');
+            const userToken = JSON.parse(tokenString);
             taskData.place = selectedPlaces[i];
-            console.log(taskData)
-            // Make a fetch request for each place
             const taskResponse = await fetch('https://15minadmin.1213213.xyz/gmaps/task/', {
               method: 'POST',
               headers: {
@@ -298,16 +282,12 @@ function TaskCreate({ onTaskCreated }) {
         } catch (error) {
           console.error('Błąd podczas komunikacji z serwerem', error);
         }
-        
         onTaskCreated();
         setSelectedPlaces([]);
         setSelectedCoordinates('');
         setSelectedApiKey('');
         setSelectedSchedule('');
         setSelectedCategories([]);
-
-
-
     };
   
   
@@ -320,7 +300,6 @@ function TaskCreate({ onTaskCreated }) {
         <form onSubmit={handleFormSubmit}>
             <div className='column'>
               <div className='checkbox-categories'>
-                {/* Wyświetl checkboxy dla miejsc */}
                 {places.map((category) => (
                   <div key={category.category_name}>
                     <FormControlLabel
@@ -333,7 +312,6 @@ function TaskCreate({ onTaskCreated }) {
                       }
                     />
                     <div className='checkbox-places' style={{ marginLeft: '20px' }}>
-                      {/* Wyświetl checkboxy dla miejsc w danej kategorii */}
                       {category.places.map((place) => (
                         <FormControlLabel
                           key={place.id}
@@ -358,12 +336,13 @@ function TaskCreate({ onTaskCreated }) {
                   variant="outlined"
                   style={{ width: '40%', marginRight: '20px' }}
                   displayEmpty
+                  data-testid="select"
                 >
-                  <MenuItem value="" disabled>
+                  <MenuItem data-testid="select-option" value="" disabled>
                     {t('Choose an API key')}
                   </MenuItem>
                   {apikey.map((apikey) => (
-                    <MenuItem key={apikey.id} value={apikey}>
+                    <MenuItem data-testid="select-option" key={apikey.id} value={apikey}>
                       {apikey.name}
                     </MenuItem>
                   ))}

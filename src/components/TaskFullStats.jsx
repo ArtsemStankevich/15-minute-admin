@@ -2,61 +2,64 @@
 
 import React, { useEffect, useState } from 'react';
 import TableContainer from './TableContainer';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
+
 
 function TaskFullStats () {
   const [stats, setStats] = useState([]);
   const { taskid } = useParams();
+  const { t } = useTranslation();
 
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Start',
+        Header: t('Start'),
         accessor: 'start',
         sortable: true,
         disableFilters: true,
         id: 'started'
       },
       {
-        Header: 'Finish',
+        Header: t('Finish'),
         accessor: 'finish',
         sortable: true,
         disableFilters: true
 
       },
       {
-        Header: 'items collected',
+        Header: t('items collected'),
         accessor: 'items_collected',
         sortable: true,
         disableFilters: true
 
       },
       {
-        Header: 'status',
+        Header: t('status'),
         accessor: 'status',
         sortable: true,
         disableFilters: true
 
       },
       {
-        Header: 'errors',
+        Header: t('errors'),
         accessor: 'error',
         sortable: true,
         disableFilters: true
 
       },
     ],
-    []
+    [t]
   );
 
   useEffect(() => {
     const fetchStats = async () => {
+      try {
 
         const tokenRefreshString = localStorage.getItem('refreshToken');
         const userRefreshToken = JSON.parse(tokenRefreshString);
         
-        const tokenString = localStorage.getItem('token');
-        const userToken = JSON.parse(tokenString);
+
 
         const tokenRefresh = {
             refresh: userRefreshToken,
@@ -72,19 +75,20 @@ function TaskFullStats () {
 
         console.log(responseToken);
         if (responseToken.ok) {
+          try{
             const data = await responseToken.json();
             localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
             localStorage.setItem('token', JSON.stringify(data.access));
+          } catch {
+            console.error("Błąd podczas refresh token")
+          }
         } else {
             console.error('Błąd podczas refresh token');
         }
 
-        if (!userToken) {
-            console.error('Brak tokenu użytkownika.');
-            return;
-        }
+        const tokenString = localStorage.getItem('token');
+        const userToken = JSON.parse(tokenString);
 
-        try {
             const response = await fetch(`https://15minadmin.1213213.xyz/gmaps/result/${taskid}`, {
             method: 'GET',
             headers: {
@@ -94,8 +98,8 @@ function TaskFullStats () {
             });
 
             if (response.ok) {
-            const data = await response.json();
-            setStats(data);
+              const data = await response.json();
+              setStats(data);
 
             } else {
             console.error('Błąd pobierania danych z serwera');
