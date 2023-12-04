@@ -72,35 +72,6 @@ function TableContainer({ columns, data }) {
     }
   };
 
-  const stopTask = async (taskApiLink) => {
-    const tokenString = localStorage.getItem('token');
-    const userToken = JSON.parse(tokenString);
-
-    // Sprawdź, czy token istnieje
-    if (!userToken) {
-      console.error('Brak tokenu użytkownika.');
-      return;
-    }
-    try {
-      const response = await fetch(`${taskApiLink}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          // Dodaj token do nagłówka Authorization
-          'Authorization': `Bearer ${userToken}`,
-        },
-      });
-
-      if (response.ok) {
-        console.log('Pomyślnie zatrzymano zadanie.');
-        // Tutaj możesz obsłużyć dodatkowe kroki po pomyślnym zatrzymaniu zadania
-      } else {
-        console.error('Błąd podczas zatrzymywania zadania.');
-      }
-    } catch (error) {
-      console.error('Błąd podczas komunikacji z serwerem', error);
-    }
-  };
 
   const generateSortingIndicator = column => {
     return column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""
@@ -118,8 +89,6 @@ function TableContainer({ columns, data }) {
   const handleActionClick = (action, taskApiLink) => {
     if (action === 'run') {
       runTask(taskApiLink);
-    } else if (action === 'stop') {
-      stopTask(taskApiLink);
     }
   };
 
