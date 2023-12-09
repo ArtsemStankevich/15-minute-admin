@@ -2,7 +2,8 @@ FROM node:21.1.0
 ENV DockerHOME=/home/app/15min/
 WORKDIR $DockerHOME
 COPY package*.json ./
-RUN apt-get update && \ apt-get install -y git
+RUN apk update && \ apk upgrade && \ apk add --no-cache git
+
 RUN npm install -g react-scripts@5.0.1
 RUN npm install
 RUN git config --local core.hooksPath .githooks
