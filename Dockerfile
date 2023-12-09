@@ -5,6 +5,7 @@ COPY package*.json ./
 
 RUN npm install -g react-scripts@5.0.1
 RUN npm install
+
 RUN git config --local core.hooksPath .githooks
 COPY . $DockerHOME
 

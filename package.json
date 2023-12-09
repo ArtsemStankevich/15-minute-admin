@@ -42,8 +42,7 @@
     "test": "react-scripts test --watchAll",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js",
-    "coverage": "nyc report --reporter=text-summary --reporter=lcovonly && nyc check-coverage --lines 80 --functions 80 --branches 80",
-    "prepare": "git config --local core.hooksPath .githooks"
+    "coverage": "nyc report --reporter=text-summary --reporter=lcovonly && nyc check-coverage --lines 80 --functions 80 --branches 80"
   },
   "eslintConfig": {
     "extends": [
