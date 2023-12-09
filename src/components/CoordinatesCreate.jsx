@@ -16,6 +16,8 @@ function ApikeysCreate({ onCoordinateCreated }) {
     e.preventDefault();
 
     // Przygotuj dane do wysłania na serwer
+    // Przygotuj dane do wysłania na serwer
+
     const apiData = {
       name: newNameCoordinates,
       lat: newLat,
