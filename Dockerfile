@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . $DockerHOME
 
-RUN npm run build
+RUN npm run build -- --no-verify
 
 EXPOSE 3000
 
