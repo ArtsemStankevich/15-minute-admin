@@ -7,7 +7,6 @@ RUN npm install -g react-scripts@5.0.1
 RUN npm install
 
 COPY . $DockerHOME
-
 RUN npm run build
 
 EXPOSE 3000
