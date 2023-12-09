@@ -12,10 +12,6 @@ function ApikeysCreate({ onCoordinateCreated }) {
   const [error, setError] = useState("");
   const { t } = useTranslation();
 
-
-
-
-  
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
