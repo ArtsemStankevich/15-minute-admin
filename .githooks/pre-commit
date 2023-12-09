@@ -1,2 +1,2 @@
 #!/bin/sh
-npx prettier --write "src/**/*"
+npx --no-install lint-staged
