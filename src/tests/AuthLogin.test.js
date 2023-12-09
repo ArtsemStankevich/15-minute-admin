@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor  } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import AuthLogin from '../components/authorization/AuthLogin';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
@@ -11,41 +11,39 @@ describe('AuthLogin', () => {
     const setTokenMock = jest.fn(); // Create a mock function
 
     render(
-        <I18nextProvider i18n={i18n}>
+      <I18nextProvider i18n={i18n}>
         <BrowserRouter>
-            <Routes>
-            <Route path="/login" element={<AuthLogin setToken={setTokenMock} />} />
-            </Routes>
+          <Routes>
+            <Route
+              path="/login"
+              element={<AuthLogin setToken={setTokenMock} />}
+            />
+          </Routes>
         </BrowserRouter>
       </I18nextProvider>
-    
     );
 
     // Your testing assertions go here
   });
 
-  it('expect find text', async() => {
+  it('expect find text', async () => {
     const setTokenMock = jest.fn(); // Create a mock function
 
     render(
-        <I18nextProvider i18n={i18n}>
+      <I18nextProvider i18n={i18n}>
         <BrowserRouter>
-              <AuthLogin setToken={setTokenMock} />
+          <AuthLogin setToken={setTokenMock} />
         </BrowserRouter>
       </I18nextProvider>
-    
     );
 
+    expect(screen.findByText('Please Log In'));
+    expect(screen.findByText('Username'));
+    expect(screen.findByText('Password'));
+    expect(screen.findByText('Submit'));
+  });
 
-    expect(screen.findByText('Please Log In'))
-    expect(screen.findByText('Username'))
-    expect(screen.findByText('Password'))
-    expect(screen.findByText('Submit'))
-
-    
-});
-
-it('should navigate to login and events pages', async () => {
+  it('should navigate to login and events pages', async () => {
     const setTokenMock = jest.fn();
     const initialPathname = '/login';
 
@@ -59,11 +57,11 @@ it('should navigate to login and events pages', async () => {
       </I18nextProvider>
     );
     await waitFor(() => {
-        // Check if the window location is updated after rendering
-        expect(window.location.pathname).toBe('/login');
-      });
+      // Check if the window location is updated after rendering
+      expect(window.location.pathname).toBe('/login');
+    });
 
-    expect(screen.findByText('Please Log In'))
+    expect(screen.findByText('Please Log In'));
     // Find input fields and change their values
     const usernameInput = await screen.findByLabelText(/Username/i);
     const passwordInput = await screen.findByLabelText(/Password/i);
@@ -97,8 +95,7 @@ it('should navigate to login and events pages', async () => {
       </I18nextProvider>
     );
 
-
-    expect(screen.findByText('Please Log In'))
+    expect(screen.findByText('Please Log In'));
     // Find input fields and change their values
     const usernameInput = await screen.findByLabelText(/Username/i);
     const passwordInput = await screen.findByLabelText(/Password/i);
@@ -118,27 +115,21 @@ it('should navigate to login and events pages', async () => {
     });
   });
 
-  it('expect find text', async() => {
+  it('expect find text', async () => {
     const setTokenMock = jest.fn(); // Create a mock function
-    i18n.changeLanguage("pl");
+    i18n.changeLanguage('pl');
 
     render(
-        <I18nextProvider i18n={i18n}>
+      <I18nextProvider i18n={i18n}>
         <BrowserRouter>
-            <AuthLogin setToken={setTokenMock} />
+          <AuthLogin setToken={setTokenMock} />
         </BrowserRouter>
       </I18nextProvider>
-    
     );
 
-
-    expect(screen.findByText('Proszę zalogować się'))
-    expect(screen.findByText('Nazwa użytkownika'))
-    expect(screen.findByText('Hasło'))
-    expect(screen.findByText('Zatwierdź'))
-
-    
+    expect(screen.findByText('Proszę zalogować się'));
+    expect(screen.findByText('Nazwa użytkownika'));
+    expect(screen.findByText('Hasło'));
+    expect(screen.findByText('Zatwierdź'));
+  });
 });
-
-});
-

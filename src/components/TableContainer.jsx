@@ -1,11 +1,11 @@
-import React, {Fragment} from 'react';
-import { useTable, useSortBy, usePagination, useFilters } from 'react-table';
-import { Table} from 'reactstrap';
-import { Link } from 'react-router-dom';
+import React, { Fragment } from "react";
+import { useTable, useSortBy, usePagination, useFilters } from "react-table";
+import { Table } from "reactstrap";
+import { Link } from "react-router-dom";
 //import { Table, Row, Col, Button, Input } from 'reactstrap';
-import './style/Categories.css';
-import { Filter, DefaultColumnFilter } from './Filters';
-import { useTranslation } from 'react-i18next';
+import "./style/Categories.css";
+import { Filter, DefaultColumnFilter } from "./Filters";
+import { useTranslation } from "react-i18next";
 
 function TableContainer({ columns, data }) {
   const { t } = useTranslation();
@@ -16,15 +16,15 @@ function TableContainer({ columns, data }) {
     headerGroups,
     prepareRow,
     page,
-//    pageOptions,
-//    pageCount,
-//    state: { pageIndex, pageSize }, 
-//    gotoPage,
-//    previousPage,
-//    nextPage,
-//    canPreviousPage,
-//    canNextPage,
-//    setPageSize,
+    //    pageOptions,
+    //    pageCount,
+    //    state: { pageIndex, pageSize },
+    //    gotoPage,
+    //    previousPage,
+    //    nextPage,
+    //    canPreviousPage,
+    //    canNextPage,
+    //    setPageSize,
   } = useTable(
     {
       columns,
@@ -36,48 +36,46 @@ function TableContainer({ columns, data }) {
       },
     },
     useFilters,
-    useSortBy, 
+    useSortBy,
     usePagination,
-
   );
 
   const runTask = async (taskApiLink) => {
-    const tokenString = localStorage.getItem('token');
+    const tokenString = localStorage.getItem("token");
     const userToken = JSON.parse(tokenString);
 
     // Sprawdź, czy token istnieje
     if (!userToken) {
-      console.error('Brak tokenu użytkownika.');
+      console.error("Brak tokenu użytkownika.");
       return;
     }
     try {
-      console.log(taskApiLink)
+      console.log(taskApiLink);
       const response = await fetch(`${taskApiLink}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           // Dodaj token do nagłówka Authorization
-          'Authorization': `Bearer ${userToken}`,
+          Authorization: `Bearer ${userToken}`,
         },
       });
 
       if (response.ok) {
-        console.log('Pomyślnie uruchomiono zadanie.');
+        console.log("Pomyślnie uruchomiono zadanie.");
         // Tutaj możesz obsłużyć dodatkowe kroki po pomyślnym uruchomieniu zadania
       } else {
-        console.error('Błąd podczas uruchamiania zadania.');
+        console.error("Błąd podczas uruchamiania zadania.");
       }
     } catch (error) {
-      console.error('Błąd podczas komunikacji z serwerem', error);
+      console.error("Błąd podczas komunikacji z serwerem", error);
     }
   };
 
+  const generateSortingIndicator = (column) => {
+    return column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : "";
+  };
 
-  const generateSortingIndicator = column => {
-    return column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""
-  }
-
-/*  const onChangeInSelect = event => {
+  /*  const onChangeInSelect = event => {
     setPageSize(Number(event.target.value))
   }
   
@@ -87,23 +85,28 @@ function TableContainer({ columns, data }) {
   }
 */
   const handleActionClick = (action, taskApiLink) => {
-    if (action === 'run') {
+    if (action === "run") {
       runTask(taskApiLink);
     }
   };
 
   return (
     <Fragment>
-
-      <Table bordered hover {...getTableProps()} className="border-max" id="tasks">
+      <Table
+        bordered
+        hover
+        {...getTableProps()}
+        className="border-max"
+        id="tasks"
+      >
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps()}>
                   <div {...column.getSortByToggleProps()}>
-                  {column.render('Header')}
-                  {generateSortingIndicator(column)}
+                    {column.render("Header")}
+                    {generateSortingIndicator(column)}
                   </div>
                   <Filter column={column} />
                 </th>
@@ -112,46 +115,47 @@ function TableContainer({ columns, data }) {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-        {page.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()} className={row.index % 2 === 0 ? 'even' : ''}>
-              {row.cells.map((cell) => {
-                return (
-                  <td {...cell.getCellProps()}>
-                        {cell.column.id === 'place.value' ? (
+          {page.map((row) => {
+            prepareRow(row);
+            return (
+              <tr
+                {...row.getRowProps()}
+                className={row.index % 2 === 0 ? "even" : ""}
+              >
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>
+                      {cell.column.id === "place.value" ? (
                         <Link to={`/fullstats/${row.original.id}`}>
-                        {cell.render('Cell')}
+                          {cell.render("Cell")}
                         </Link>
-                      ) : cell.column.id === 'startNow' ? (
-                      <div>
+                      ) : cell.column.id === "startNow" ? (
+                        <div>
                           <button
                             className="table-button"
-                            onClick={() => handleActionClick('run', row.values.startNow)}
+                            onClick={() =>
+                              handleActionClick("run", row.values.startNow)
+                            }
                           >
-                            {t('Start Now')}
+                            {t("Start Now")}
                           </button>
-                      </div>
-                    ) : cell.column.id === 'schedule' ? (
-                      <div>
-                        {row.values.schedule}
-                      </div>
-                    ) : cell.column.id === 'schedulelist' ? (
-                      <div>
-                        {row.values.every}
-                      </div>
-                    )  : (
-                      cell.render('Cell')
-                    )}
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
+                        </div>
+                      ) : cell.column.id === "schedule" ? (
+                        <div>{row.values.schedule}</div>
+                      ) : cell.column.id === "schedulelist" ? (
+                        <div>{row.values.every}</div>
+                      ) : (
+                        cell.render("Cell")
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
       </Table>
-    {/*
+      {/*
     <Row style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
     <Col md={3}>
       <Button
@@ -213,4 +217,3 @@ function TableContainer({ columns, data }) {
 }
 
 export default TableContainer;
-

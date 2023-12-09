@@ -1,30 +1,29 @@
 .tab-buttons {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .header-button-group .active {
-    background-color: rgb(5, 7, 110);
-    color: #fff;
-    border: none;
-  }
-  
-  .header-button-group .MuiButton-outlined {
-    border: none;
-  }
-  
-  .header-button:hover {
-    background-color: rgb(35, 37, 159);
-    color: #fff;
-    border: none;
-  }
+  display: flex;
+  justify-content: space-around;
+}
 
-  .header-border{
-    border: 2px solid rgb(28, 30, 138);
+.header-button-group .active {
+  background-color: rgb(5, 7, 110);
+  color: #fff;
+  border: none;
+}
 
-  }
+.header-button-group .MuiButton-outlined {
+  border: none;
+}
 
-  .language-select {
-    width: 150px; /* Ustaw szerokość na dowolną wartość */
-    height: 37px; /* Ustaw wysokość na dowolną wartość */
-  }
+.header-button:hover {
+  background-color: rgb(35, 37, 159);
+  color: #fff;
+  border: none;
+}
+
+.header-border {
+  border: 2px solid rgb(28, 30, 138);
+}
+
+.language-select {
+  width: 150px; /* Ustaw szerokość na dowolną wartość */
+  height: 37px; /* Ustaw wysokość na dowolną wartość */
+}
