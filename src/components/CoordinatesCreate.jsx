@@ -15,6 +15,10 @@ function ApikeysCreate({ onCoordinateCreated }) {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
+
+
+
+    
     // Przygotuj dane do wysłania na serwer
     const apiData = {
       name: newNameCoordinates,
