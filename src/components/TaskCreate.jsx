@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Select from "@mui/material/Select";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import "./style/Categories.css";
-import { useTranslation } from "react-i18next";
+import React, { useState, useEffect } from 'react';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Button from '@mui/material/Button';
+import './style/Categories.css';
+import { useTranslation } from 'react-i18next';
 
 function TaskCreate({ onTaskCreated }) {
   const [places, setPlace] = useState([]);
@@ -14,13 +14,13 @@ function TaskCreate({ onTaskCreated }) {
   const [coordinates, setCoordinates] = useState([]);
 
   const [selectedPlaces, setSelectedPlaces] = useState([]);
-  const [selectedApikey, setSelectedApiKey] = useState("");
-  const [selectedSchedule, setSelectedSchedule] = useState("");
-  const [selectedCoordinates, setSelectedCoordinates] = useState("");
+  const [selectedApikey, setSelectedApiKey] = useState('');
+  const [selectedSchedule, setSelectedSchedule] = useState('');
+  const [selectedCoordinates, setSelectedCoordinates] = useState('');
 
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const { t } = useTranslation();
 
@@ -64,18 +64,18 @@ function TaskCreate({ onTaskCreated }) {
 
   useEffect(() => {
     // Pobierz token z sessionStorage
-    const tokenString = localStorage.getItem("token");
+    const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
 
     // Sprawdź, czy token istnieje
     const fetchTasks = async () => {
       try {
         const response = await fetch(
-          "https://15minadmin.1213213.xyz/gmaps/place/",
+          `${process.env.REACT_APP_URL_ADMIN_API}gmaps/place/`,
           {
-            method: "GET",
+            method: 'GET',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${userToken}`, // Dodaj token do nagłówka Authorization
             },
           },
@@ -86,10 +86,10 @@ function TaskCreate({ onTaskCreated }) {
           setPlace(data);
           console.log(data);
         } else {
-          console.error("Błąd pobierania danych z serwera");
+          console.error('Błąd pobierania danych z serwera');
         }
       } catch (error) {
-        console.error("Błąd pobierania danych z serwera", error);
+        console.error('Błąd pobierania danych z serwera', error);
       }
     };
 
@@ -98,7 +98,7 @@ function TaskCreate({ onTaskCreated }) {
 
   useEffect(() => {
     // Pobierz token z sessionStorage
-    const tokenString = localStorage.getItem("token");
+    const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
 
     // Sprawdź, czy token istnieje
@@ -106,11 +106,11 @@ function TaskCreate({ onTaskCreated }) {
     const fetchTasks = async () => {
       try {
         const response = await fetch(
-          "https://15minadmin.1213213.xyz/gmaps/schedule/",
+          `${process.env.REACT_APP_URL_ADMIN_API}gmaps/schedule/`,
           {
-            method: "GET",
+            method: 'GET',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${userToken}`, // Dodaj token do nagłówka Authorization
             },
           },
@@ -121,10 +121,10 @@ function TaskCreate({ onTaskCreated }) {
           setSchedule(data);
           console.log(data);
         } else {
-          console.error("Błąd pobierania danych z serwera");
+          console.error('Błąd pobierania danych z serwera');
         }
       } catch (error) {
-        console.error("Błąd pobierania danych z serwera", error);
+        console.error('Błąd pobierania danych z serwera', error);
       }
     };
 
@@ -133,17 +133,17 @@ function TaskCreate({ onTaskCreated }) {
 
   useEffect(() => {
     // Pobierz token z sessionStorage
-    const tokenString = localStorage.getItem("token");
+    const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
 
     const fetchTasks = async () => {
       try {
         const response = await fetch(
-          "https://15minadmin.1213213.xyz/gmaps/credential/",
+          `${process.env.REACT_APP_URL_ADMIN_API}gmaps/credential/`,
           {
-            method: "GET",
+            method: 'GET',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${userToken}`, // Dodaj token do nagłówka Authorization
             },
           },
@@ -153,10 +153,10 @@ function TaskCreate({ onTaskCreated }) {
           const data = await response.json();
           setApiKey(data);
         } else {
-          console.error("Błąd pobierania danych z serwera");
+          console.error('Błąd pobierania danych z serwera');
         }
       } catch (error) {
-        console.error("Błąd pobierania danych z serwera", error);
+        console.error('Błąd pobierania danych z serwera', error);
       }
     };
 
@@ -165,17 +165,17 @@ function TaskCreate({ onTaskCreated }) {
 
   useEffect(() => {
     // Pobierz token z sessionStorage
-    const tokenString = localStorage.getItem("token");
+    const tokenString = localStorage.getItem('token');
     const userToken = JSON.parse(tokenString);
 
     const fetchTasks = async () => {
       try {
         const response = await fetch(
-          "https://15minadmin.1213213.xyz/gmaps/coordinates/",
+          `${process.env.REACT_APP_URL_ADMIN_API}gmaps/coordinates/`,
           {
-            method: "GET",
+            method: 'GET',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${userToken}`, // Dodaj token do nagłówka Authorization
             },
           },
@@ -186,10 +186,10 @@ function TaskCreate({ onTaskCreated }) {
           setCoordinates(data);
           console.log(data);
         } else {
-          console.error("Błąd pobierania danych z serwera");
+          console.error('Błąd pobierania danych z serwera');
         }
       } catch (error) {
-        console.error("Błąd pobierania danych z serwera", error);
+        console.error('Błąd pobierania danych z serwera', error);
       }
     };
 
@@ -213,11 +213,11 @@ function TaskCreate({ onTaskCreated }) {
       !selectedCoordinates ||
       !selectedSchedule
     ) {
-      setError("Please fill in all required fields.");
+      setError('Please fill in all required fields.');
     }
 
     try {
-      const tokenRefreshString = localStorage.getItem("refreshToken");
+      const tokenRefreshString = localStorage.getItem('refreshToken');
       const userRefreshToken = JSON.parse(tokenRefreshString);
 
       const tokenRefresh = {
@@ -225,11 +225,11 @@ function TaskCreate({ onTaskCreated }) {
       };
 
       const responseToken = await fetch(
-        "https://15minadmin.1213213.xyz/users//token/refresh/",
+        `${process.env.REACT_APP_URL_ADMIN_API}users//token/refresh/`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(tokenRefresh),
         },
@@ -237,10 +237,10 @@ function TaskCreate({ onTaskCreated }) {
 
       if (responseToken.ok) {
         const data = await responseToken.json();
-        localStorage.setItem("refreshToken", JSON.stringify(data.refresh));
-        localStorage.setItem("token", JSON.stringify(data.access));
+        localStorage.setItem('refreshToken', JSON.stringify(data.refresh));
+        localStorage.setItem('token', JSON.stringify(data.access));
       } else {
-        console.error("Błąd podczas refresh token");
+        console.error('Błąd podczas refresh token');
       }
 
       if (
@@ -249,20 +249,20 @@ function TaskCreate({ onTaskCreated }) {
         !selectedCoordinates ||
         !selectedSchedule
       ) {
-        setError("Please fill in all required fields.");
+        setError('Please fill in all required fields.');
         return;
       }
 
       for (let i = 0; i < selectedPlaces.length; i++) {
-        const tokenString = localStorage.getItem("token");
+        const tokenString = localStorage.getItem('token');
         const userToken = JSON.parse(tokenString);
         taskData.place = selectedPlaces[i];
         const taskResponse = await fetch(
-          "https://15minadmin.1213213.xyz/gmaps/task/",
+          `${process.env.REACT_APP_URL_ADMIN_API}gmaps/task/`,
           {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
               Authorization: `Bearer ${userToken}`,
             },
             body: JSON.stringify(taskData),
@@ -270,7 +270,7 @@ function TaskCreate({ onTaskCreated }) {
         );
 
         if (taskResponse.ok) {
-          setError("");
+          setError('');
           console.log(
             `Pomyślnie utworzono zadanie dla place ${selectedPlaces[i]}`,
           );
@@ -278,25 +278,25 @@ function TaskCreate({ onTaskCreated }) {
           console.error(
             `Błąd podczas tworzenia zadania dla place ${selectedPlaces[i]}`,
           );
-          setError("Task already exists");
+          setError('Task already exists');
         }
       }
     } catch (error) {
-      console.error("Błąd podczas komunikacji z serwerem", error);
+      console.error('Błąd podczas komunikacji z serwerem', error);
     }
     onTaskCreated();
     setSelectedPlaces([]);
-    setSelectedCoordinates("");
-    setSelectedApiKey("");
-    setSelectedSchedule("");
+    setSelectedCoordinates('');
+    setSelectedApiKey('');
+    setSelectedSchedule('');
     setSelectedCategories([]);
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: '100%' }}>
       <p className="borderer">
-        <h3 className="auto-center">{t("Create New Task")}</h3>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <h3 className="auto-center">{t('Create New Task')}</h3>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleFormSubmit}>
           <div className="column">
             <div className="checkbox-categories">
@@ -317,7 +317,7 @@ function TaskCreate({ onTaskCreated }) {
                   />
                   <div
                     className="checkbox-places"
-                    style={{ marginLeft: "20px" }}
+                    style={{ marginLeft: '20px' }}
                   >
                     {category.places.map((place) => (
                       <FormControlLabel
@@ -335,18 +335,18 @@ function TaskCreate({ onTaskCreated }) {
                 </div>
               ))}
             </div>
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Select
                 label="Apikey"
                 value={selectedApikey}
                 onChange={(e) => setSelectedApiKey(e.target.value)}
                 variant="outlined"
-                style={{ width: "40%", marginRight: "20px" }}
+                style={{ width: '40%', marginRight: '20px' }}
                 displayEmpty
                 data-testid="select"
               >
                 <MenuItem data-testid="select-option" value="" disabled>
-                  {t("Choose an API key")}
+                  {t('Choose an API key')}
                 </MenuItem>
                 {apikey.map((apikey) => (
                   <MenuItem
@@ -364,11 +364,11 @@ function TaskCreate({ onTaskCreated }) {
                 value={selectedCoordinates}
                 onChange={(e) => setSelectedCoordinates(e.target.value)}
                 variant="outlined"
-                style={{ width: "40%", marginRight: "20px" }}
+                style={{ width: '40%', marginRight: '20px' }}
                 displayEmpty
               >
                 <MenuItem value="" disabled>
-                  {t("Choose Coordinates")}
+                  {t('Choose Coordinates')}
                 </MenuItem>
                 {coordinates.map((coordinates) => (
                   <MenuItem key={coordinates.id} value={coordinates}>
@@ -382,11 +382,11 @@ function TaskCreate({ onTaskCreated }) {
                 value={selectedSchedule}
                 onChange={(e) => setSelectedSchedule(e.target.value)}
                 variant="outlined"
-                style={{ width: "40%", marginRight: "20px" }}
+                style={{ width: '40%', marginRight: '20px' }}
                 displayEmpty
               >
                 <MenuItem value="" disabled>
-                  {t("Choose Schedule")}
+                  {t('Choose Schedule')}
                 </MenuItem>
                 {schedule.map((schedule) => (
                   <MenuItem key={schedule.id} value={schedule}>
@@ -399,9 +399,9 @@ function TaskCreate({ onTaskCreated }) {
                 variant="contained"
                 color="primary"
                 type="submit"
-                style={{ backgroundColor: "darkblue" }}
+                style={{ backgroundColor: 'darkblue' }}
               >
-                {t("Add Task")}
+                {t('Add Task')}
               </Button>
             </div>
           </div>
