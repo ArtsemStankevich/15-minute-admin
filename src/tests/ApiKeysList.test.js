@@ -10,7 +10,7 @@ describe('ApikeysList', () => {
   const password = '343877';
 
   async function loginUser() {
-    return fetch('https://15minadmin.1213213.xyz/users/token/', {
+    return fetch(`${process.env.REACT_APP_URL_ADMIN_API}users/token/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

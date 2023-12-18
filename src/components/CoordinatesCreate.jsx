@@ -57,7 +57,7 @@ function ApikeysCreate({ onCoordinateCreated }) {
       };
 
       const responseToken = await fetch(
-        'https://15minadmin.1213213.xyz/users//token/refresh/',
+        `${process.env.REACT_APP_URL_ADMIN_API}users//token/refresh/`,
         {
           method: 'POST',
           headers: {
@@ -77,7 +77,7 @@ function ApikeysCreate({ onCoordinateCreated }) {
       }
 
       const response = await fetch(
-        'https://15minadmin.1213213.xyz/gmaps/coordinates/',
+        `${process.env.REACT_APP_URL_ADMIN_API}gmaps/coordinates/`,
         {
           method: 'POST',
           headers: {
